@@ -21,7 +21,7 @@ we can pass around such stream within the application without actually performin
 be called at very different part of the application or at very late in time.
  */
 
-package _010_lambda;
+package _020_Streams;
 
 import java.util.Arrays;
 import java.util.List;

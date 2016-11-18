@@ -1,4 +1,4 @@
-package _010_lambda;
+package _020_Streams;
 
 import java.util.Arrays;
 import java.util.List;
