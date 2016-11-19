@@ -1,22 +1,28 @@
-/*
+/* Think from FunctionalInterface side and not from lambdaExpression side
+ 
 FunctionalInterface:
-A functional interface is an interface with one method and used as the type of a lambda expression.
+Functional Interface is an interface with just one abstract method declared in it.
+
 public interface ActionListener extends EventListener {
     public void actionPerformed(ActionEvent event);
 }
-ActionListener has only one method, actionPerformed. It is a functional interface. It doesn't matter what the single method is called, the Java compiler will match it up to your lambda expression as long as it has a compatible method signature.
+
+ActionListener has only one method, actionPerformed. It is a functional interface. It doesn't matter what the single method is called, the Java compiler 
+will match it up to your lambda expression as long as it has a compatible method signature.
 A lambda expression represents an instance of a functional interface.
 The type of a lambda expression is a functional interface type.
 (String str) -> str.length() takes a String parameter and returns its length.
 Its type can be any functional interface type with an abstract method that takes a String as a parameter and returns an int.
 The following is an example of such a functional interface:
+
 @FunctionalInterface
 interface Processor  {
     int  getStringLength(String str);
 }
-We can assign lambda expression to its functional interface instance.
-Processor stringProcessor = (String str) -> str.length();
 
+We can assign lambda expression to its functional interface instance.
+
+Processor stringProcessor = (String str) -> str.length();
 
 We cannot use the following types of methods to declare a functional interface:
 Default methods
@@ -35,6 +41,7 @@ An interface with one abstract method is still a functional interface even we do
 
 Generic Functional Interface:
 We can use type parameters with a functional interface to create generic functional interface.
+
  */
 
 package _010_lambda;
@@ -45,10 +52,12 @@ interface  MyInterface2<T> {
    T fn1(T  o1, T  o2);
 
    // Re-declaration of the equals() method in the Object class
-   // this interface has two abstract methods: compare() and equals()
+   // this interface has two abstract methods: fn1() and equals()
    boolean equals(Object  obj);
    
    //default method
+   //Java 8 enables us to add non-abstract method implementations to interfaces by utilizing the default keyword. 
+   //This feature is also known as Extension Methods.
    default T fn2(T  o1, T  o2){
 	   return o1;
    }

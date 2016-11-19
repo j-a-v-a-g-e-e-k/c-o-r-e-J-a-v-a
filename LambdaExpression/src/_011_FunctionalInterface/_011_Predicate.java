@@ -14,11 +14,12 @@ public class _011_Predicate {
 		System.out.println(filter(boxList, _011_Predicate::isHeavy));
 		System.out.println(filter(boxList, (Box x)->"Green".equals(x.getColor())));
 		System.out.println(filter(boxList, (Box x)->x.getWeight()>10));
-		
+
 		//return predicates
 		Function<String, Predicate<Box>> fn5 = x-> ((Box b)->x.equals(b.getColor()));
 		System.out.println(filter(boxList, fn5.apply("red")));
 	}
+	
 	public static List<Box> filter (List<Box> boxList, Predicate<Box> fn3){
 		List<Box> result = new ArrayList<>();
 		for(Box box: boxList){

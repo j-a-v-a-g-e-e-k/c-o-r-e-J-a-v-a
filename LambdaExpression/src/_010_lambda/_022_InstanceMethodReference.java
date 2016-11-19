@@ -1,88 +1,64 @@
 /*
 We can get an instance method reference in two ways, from the object instance or from the class name.
-
 Basically we have the following two forms.
 
 instance::MethodName
-ClassName::MethodName
+ClassName::MethodName --?? does not work
+
 Here the instance represents any object instance. ClassName is the name of the class, such as String, Integer.
-
 instance and ClassName are called the receiver. More specifically, instance is called bounded receiver while ClassName is called unbounded receiver.
-
 We call instance bounded receiver since the receiver is bounded to the instance.
-
 ClassName is unbounded receiver since the receiver is bounded later.
 
  */
 package _010_lambda;
 
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class _022_InstanceMethodReference {
 	public static void main(String[] args){
-		fn1(); 	fn2(); 	fn3(); fn4(); 
+		fn1(); 
 	}
 
 	//============Bound Instance Method Reference===============
 	//instance::MethodName
 	//The following example shows how to use bound receiver and method with no parameters to create Instance Method References.
 	public static void fn1(){
-		Supplier<Integer> supplier  = () ->  "java2s.com".length(); 
+		Supplier<Integer> supplier  = () ->  "Hello".length(); 
 		System.out.println(supplier.get());	    
 
-		Supplier<Integer> supplier1  = "java2s.com"::length; 
+		Supplier<Integer> supplier1  = "Hello"::length; 
 		System.out.println(supplier1.get());
-	}
 
 	//instance::MethodName
 	//The following example shows how to use bound receiver and method with parameters to create Instance Method References.
-	public static void fn2(){
 		Util util = new Util();
 
-		Consumer<String> consumer  = str ->  util.print(str);
-		consumer.accept("Hello"); 	    
+		Function<String,Integer> consumer  = str ->  util.print(str);
+		consumer.apply("Hello"); 	    
 
-		Consumer<String> consumer1  = util::print;
-		consumer1.accept("java2s.com");
-	}
+		Function<String,Integer> consumer1  = util::print; 
+		consumer1.apply("Hello");
 
 	//============Unbound Instance Method Reference===============
 	//ClassName::MethodName
 	//It is the same syntax we use to reference a static method.
-
-	public static void fn3(){
-		Function<String,  Integer> strLengthFunc = String::length; 
-	    String name ="java2s.com";
-	    int len   =  strLengthFunc.apply(name); 
-	    System.out.println("name  = "  +  name + ", length = "  + len);
-	    
-	    name ="www.java2s.com";
-	    len   =  strLengthFunc.apply(name); 
-	    System.out.println("name  = "  +  name + ", length = "  + len);
+		BiFunction<Util,String,Integer> fn3=(x,y) ->x.print(y);
+		System.out.println(fn3.apply(new Util(), "Hello Bimal"));
+		
+		Function<String,  Integer> fn1 = String::length; 
+		System.out.println(fn1.apply("Hello")); 
+		
+		BiFunction<Util,String,Integer> fn2 = Util::print; //unbound receiver
+		//print takes String and return Integer, but we have to specify Util as well to bound the receiver later.
+		System.out.println(fn2.apply(new Util(), "Hello")); //bound the receiver by providing the instance
 	}
-	
-	public static void fn4(){
-	    BiFunction<String,  String,String> strFunc = Util2::append; 
-	    String name ="java2s.com";
-	    String s=  strFunc.apply(name,"hi"); 
-	    System.out.println(s);
-	}
-	
 }
 
 class Util{
-	private int count=0;
-	public void print(String s){
-		System.out.println(s);
-		count++;
+	public int print(String s){
+		return s.length();
 	}
 }
-
-class Util2{
-	  public static String append(String s1,String s2){
-	    return s1+s2;
-	  }  
-	}

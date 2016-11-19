@@ -1,3 +1,13 @@
+/*
+Supertype Instance Method References
+The keyword super, which is only used in an instance context, references the overridden method.
+We can use the following syntax to create a method reference that refers to the instance method in the parent type.
+
+ClassName.super::instanceMethod
+
+We use this::append to reference the current class while using Util.super::append to reference the method from parent class.
+ */
+
 package _010_lambda;
 
 import java.util.function.BiFunction;
@@ -5,22 +15,19 @@ import java.util.function.BiFunction;
 public class _023_SupertypeInstanceMethodReference {
 
 	public static void main(String[] argv){
-		new Util3();
+		new ChildUtil();
 	}
 }
-class Util3 extends ParentUtil{
+class ChildUtil extends ParentUtil{
 
-	public Util3(){
-		BiFunction<String,  String,String> strFunc = this::append; 
-		String name ="java2s.com";
-		String s=  strFunc.apply(name," hi"); 
+	public ChildUtil(){
+		BiFunction<String,String,String> strFunc = this::append; 
+		String s=  strFunc.apply("bimal", "jain"); 
 		System.out.println(s);
 
-		strFunc = Util3.super::append; 
-		name ="java2s.com";
-		s=  strFunc.apply(name," Java Lambda Tutorial"); 
+		strFunc = ChildUtil.super::append; 
+		s=  strFunc.apply("meghna","jain"); 
 		System.out.println(s);
-
 	}
 
 	@Override
@@ -29,6 +36,7 @@ class Util3 extends ParentUtil{
 		return s1+s2;
 	}  
 }
+
 class ParentUtil{
 	public String append(String s1,String s2){
 		System.out.println("parent append");

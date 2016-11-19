@@ -1,6 +1,6 @@
 package _010_lambda;
 
-public class _011_FinalModifier {
+public class _010_FinalModifier {
 	public static void main(String[] args){
 		//You can use final modifier in the parameter declaration for explicit lambda expressions.
 		myInterface fn1 = (final String x, final String y) -> x.length() + y.length();

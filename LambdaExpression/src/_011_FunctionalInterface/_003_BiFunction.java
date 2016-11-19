@@ -4,6 +4,8 @@ BiFunction represents a function that accepts two arguments and produces a resul
 Methods:
 BiFunction apply
 BiFunction andThen
+compose() method is not possible because before.BiFunction can return only one, but this.BiFunction need 2 input params. 
+no identity() method since it cannot return 2 input params.
  */
 
 package _011_FunctionalInterface;

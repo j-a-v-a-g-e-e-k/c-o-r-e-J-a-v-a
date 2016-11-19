@@ -4,6 +4,9 @@ Consumer interface represents an operation that accepts a single input argument 
 Method
 Consumer accept
 Consumer andThen
+there are no compose() and identity() methods.
+	before.Consumer will not return anything for this.Consumer
+	consumers don't return anything, so there is no identity() method.
  */
 package _011_FunctionalInterface;
 
@@ -25,7 +28,6 @@ public class _004_Consumer {
 		//Consumer andThen returns a composed Consumer that performs, in sequence, for the current operation followed by the after operation.
 		//default Consumer<T> andThen(Consumer<? super T> after)
 		fn3.andThen(fn4).accept(2);
-		
 	}
 	public static void printIt(Consumer<Integer> fn2, Integer i){
 		fn2.accept(i);

@@ -44,5 +44,4 @@ public class _025_ArrayConstructorReference {
 		intArray5[4] = new int[5];
 		System.out.println(Arrays.deepToString(intArray5));
 	}
-
 }

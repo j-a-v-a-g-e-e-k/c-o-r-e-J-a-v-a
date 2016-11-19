@@ -13,7 +13,10 @@ package _011_FunctionalInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
 
 public class _002_Function {
 	public static void main(String[] args){
@@ -27,7 +30,17 @@ public class _002_Function {
 		
 		//create function from method reference
 		System.out.println(fn9(Integer::doubleValue,3));
-		//Cannot use Integer::toString, because toString() is overloaded in Integer class. 
+		//Cannot use Integer::toString, because toString() is overloaded in Integer class.
+		
+		//ERROR: Ambiguous method reference: both toString() and toString(int) from the type Integer are eligible
+		//Function<Integer,String> fn14 = Integer::toString;
+		 
+		//use String java.lang.Integer.toString() -- non static method
+		Supplier<String> fn13 = new Integer(2)::toString;
+		//use String java.lang.Integer.toString(int i) -- static method
+		IntFunction<String> fn11 = Integer::toString;
+		//use String java.lang.Integer.toString(int i, int radix) -- static method
+		BiFunction<Integer, Integer, String> fn12 = Integer::toString;
 
 		//compose()
 		//Function compose returns a composed function that first applies the before function to its input, and then applies this function to the result.

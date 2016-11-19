@@ -2,10 +2,9 @@
  We can use generic methods in method reference by specifying the actual type parameter.
 
 The syntax is as follows
-
 ClassName::<TypeName>methodName
-The syntax for generic constructor reference
 
+The syntax for generic constructor reference
 ClassName<TypeName>::new
  */
 package _010_lambda;

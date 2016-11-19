@@ -19,7 +19,10 @@ public class _012_Predicate {
 		Predicate<String> fn1 = x->x.length()>0;
 		Predicate<String> fn2 = x->x.length()>4;
 		System.out.println(fn1.and(fn2).test("Hi"));
-		
+
+		Predicate<String> fn4 = fn1.and(fn2);
+		System.out.println(fn4.test("Hi"));
+ 		
 		//or()
 		//Predicate or returns a composed predicate that represents a short-circuiting logical OR of this predicate and another.
 		//default Predicate<T> or(Predicate<? super T> other)

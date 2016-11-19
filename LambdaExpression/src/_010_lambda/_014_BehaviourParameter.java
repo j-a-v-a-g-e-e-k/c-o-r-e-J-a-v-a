@@ -1,16 +1,16 @@
 /*
+
 Behavior parameterization Ambiguity
 It is not always possible for the compiler to infer the type of a lambda expression.
-
 One such situation is passing lambda expressions to overloaded methods.
 
-In the main method we have to indicate the parameters for lambda expression to indicate compiler which overloaded function we want to use.
  */
 package _010_lambda;
 
 public class _014_BehaviourParameter {
 
 	public static void main(String[] argv) {
+		//we have to indicate the parameters for lambda expression to indicate compiler which overloaded function we want to use.
 		CalculatorEngine((int x,int y)-> x + y);
 		CalculatorEngine((long x, long y)-> x * y);
 		CalculatorEngine((int x,int y)-> x / y);

@@ -1,6 +1,6 @@
 package _010_lambda;
 
-public class _010_Lambda {
+public class _009_Lambda {
 	public static void main(String[] args) {
 		Thread t1 = new Thread(new Runnable() {
 			public void run() {

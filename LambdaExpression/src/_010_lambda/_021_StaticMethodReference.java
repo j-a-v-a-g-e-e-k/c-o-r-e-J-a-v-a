@@ -2,6 +2,7 @@
 A lambda expression represents an anonymous function defined in a functional interface.
 A method reference creates a lambda expression using an existing method.
 The general syntax for a method reference is
+
 Qualifier::MethodName
 
 Two consecutive colons act as a separator.
@@ -33,14 +34,12 @@ import java.util.function.Function;
 
 public class _021_StaticMethodReference {
 	public static void main(String[] argv) {
-		fn1();
-		fn2();
-		fn3();
+		fn1();		fn2();		fn3();
 	}  
 	
 	public static void fn1(){
 		// Using  a  lambda  expression
-		Function<Integer, String> func1  = x -> Integer.toBinaryString(x);
+		Function<Integer, String> func1  = x -> Integer.toBinaryString(x); //static method call. Methods with parameters
 		System.out.println(func1.apply(10));
 
 		// Using  a  method  reference
@@ -50,7 +49,7 @@ public class _021_StaticMethodReference {
 	
 	public static void fn2(){
 		// Uses a lambda expression
-	    BiFunction<Integer, Integer, Integer> func1 = (x, y) -> Integer.sum(x, y);
+	    BiFunction<Integer, Integer, Integer> func1 = (x, y) -> Integer.sum(x, y); //static method call
 	    System.out.println(func1.apply(2, 3));
 
 	    // Uses a method reference
@@ -59,17 +58,16 @@ public class _021_StaticMethodReference {
 	}
 	
 	/*
-Static Method References in Overloading
-We can use overloaded static method in static method reference.
-
-When the overloaded method we have to pay more attention to the method signature and corresponding functional interface.
-*/
+		Static Method References in Overloading
+		We can use overloaded static method in static method reference.
+		When the overloaded method we have to pay more attention to the method signature and corresponding functional interface.
+	 */
 	public static void fn3(){
 		// Uses  Integer.valueOf(int)
-	    Function<Integer, Integer> func1  = Integer::valueOf;
+	    Function<Integer, Integer> func1  = Integer::valueOf; //static method call
 
 	    // Uses  Integer.valueOf(String)
-	    Function<String, Integer> func2  = Integer::valueOf;
+	    Function<String, Integer> func2  = Integer::valueOf; 
 
 	    // Uses  Integer.valueOf(String, int)
 	    BiFunction<String, Integer,  Integer> func3  = Integer::valueOf;

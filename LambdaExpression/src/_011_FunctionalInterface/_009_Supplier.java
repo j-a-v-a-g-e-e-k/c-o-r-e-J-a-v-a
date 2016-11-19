@@ -1,3 +1,10 @@
+/*
+ No compose(), andThen(), identity() methods
+ compose(): this.Supplier cannot accept anything from before.Supplier
+ andThen(): they will act like 2 independent methods which does not accept anything and return something
+ identity(): no input param which can be returned
+ */
+
 package _011_FunctionalInterface;
 
 import java.util.function.Supplier;

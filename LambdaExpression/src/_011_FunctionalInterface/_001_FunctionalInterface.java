@@ -88,6 +88,8 @@ public class _001_FunctionalInterface {
 		BiFunction<Integer, String, String> d = (Integer x, String y) -> x + " , " + y;
 		System.out.println(d.apply(99, "bimal"));
 		
+		//why there is no IntBiFunction()?
+		
 		ToIntBiFunction<String, String> x22 = (x,y) -> Integer.parseInt(x) + Integer.parseInt(y);
 		System.out.println(x22.applyAsInt("2", "3")); //only method available
 		
@@ -112,6 +114,11 @@ public class _001_FunctionalInterface {
 		DoubleConsumer k = (x) -> System.out.println(x);
 		k.accept(4.0);
 
+		//there is no ToIntConsumer(), since consumer don't return anything
+		
+		BiConsumer<Integer, String> b = (Integer x, String y) -> System.out.println(x + " , " + y);
+		b.accept(77, "Bimal");
+
 		ObjIntConsumer<String> x17 = (x,y) -> System.out.println(x+y);
 		x17.accept("bimal", 33);//only method available
 		
@@ -120,9 +127,6 @@ public class _001_FunctionalInterface {
 
 		ObjDoubleConsumer<String> x16 = (x,y) -> System.out.println(x+y);
 		x16.accept("bimal", 33.0);//only method available
-
-		BiConsumer<Integer, String> b = (Integer x, String y) -> System.out.println(x + " , " + y);
-		b.accept(77, "Bimal");
 		
 		System.out.println("======================");
 		
@@ -140,6 +144,8 @@ public class _001_FunctionalInterface {
 		
 		BooleanSupplier h = () -> 1==1;
 		System.out.println(h.getAsBoolean());//only method available
+		
+		//there are no BiSupplier() since supplier don't take any parameter
 		
 		System.out.println("======================");
 		
