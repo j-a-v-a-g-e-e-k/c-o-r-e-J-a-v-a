@@ -1,5 +1,10 @@
 package _010_lambda;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class _009_Lambda {
 	public static void main(String[] args) {
 		Thread t1 = new Thread(new Runnable() {
@@ -31,5 +36,22 @@ public class _009_Lambda {
 //deduced that lambda expression can be casted to Runnable interface from Thread class’s constructor signature public Thread(Runnable r) { }.
 		new Thread(() -> System.out.println("Lambda: In another thread"));
 		
+		//2nd example
+		List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+
+		Collections.sort(names, new Comparator<String>() {
+			public int compare(String a, String b) {
+				return b.compareTo(a);
+			}
+		});
+		
+		System.out.println(names);
+		
+		names = Arrays.asList("peter", "anna", "mike", "xenia");
+		System.out.println(names);
+		
+		Collections.sort(names, (a, b) -> b.compareTo(a));
+		
+		System.out.println(names);
 	}
 }
