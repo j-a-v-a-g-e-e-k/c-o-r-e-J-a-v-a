@@ -1,4 +1,4 @@
-package _098_helper;
+package _099_helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,5 +58,22 @@ public class Employee {
 	public String toString(){
 		return getName() + "-" + getGender() + "-" + getIncome();
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public void setIncome(double income) {
+		this.income = income;
+	}	
+	
 }
 

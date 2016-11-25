@@ -1,5 +1,6 @@
 /*
-Collectors provides various useful reduction operations, such as accumulating elements into collections, summarizing elements according to various criteria, etc.
+Collectors provides various useful reduction operations, such as accumulating elements into collections, summarizing elements according to 
+various criteria, etc.
 
 <R, A> R collect(Collector<? super T, A, R> collector)
 When executed in parallel, multiple intermediate results may be instantiated, populated, and merged so as to maintain isolation of mutable 
@@ -16,7 +17,7 @@ the result of the reduction
 
 */
 
-package _020_Create_Stream;
+package _015_Streams;
 
 import java.util.Collections;
 import java.util.DoubleSummaryStatistics;
@@ -32,10 +33,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import _098_helper.Employee;
-import _098_helper.Employee.Gender;
+import _099_helper.Employee;
+import _099_helper.Employee.Gender;
 
-public class _012_Collectors_Methods {
+public class _015_Collectors_Methods {
 	public static void main(String[] args){
 		Stream<String> s = Stream.of("1","2","3");
 		
@@ -81,7 +82,8 @@ public class _012_Collectors_Methods {
 		/*
 		The second form of toMap listed as follows has an extra merged function.
 		mergeFunction is used to resolve collisions between values associated with the same key
-		The merged function is passed the old and new values for the duplicate key. The function should merge the two values and return a new value that will be used for the key.
+		The merged function is passed the old and new values for the duplicate key. The function should merge the two values and return a new value 
+		that will be used for the key.
 		*/
 		Map<Gender,String> empStream3 = Employee.create().stream()
 				.collect(Collectors.toMap(Employee::getGender, Employee::getName, (oldValue, newValue)  ->  String.join(", ", oldValue,  newValue)));
@@ -93,7 +95,8 @@ public class _012_Collectors_Methods {
 				.collect(Collectors.toConcurrentMap(Employee::getId, Employee::getName));
 		System.out.println(empStream4);
 
-		//Collectors toConcurrentMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> mergeFunction) 
+		//Collectors toConcurrentMap(Function<? super T,? extends K> keyMapper, Function<? super T,? extends U> valueMapper, BinaryOperator<U> 
+		//mergeFunction) 
 		//returns a concurrent Collector that accumulates elements into a ConcurrentMap whose keys and values are from the mapping functions.
 		Map<Gender,Integer> empStream5 = Employee.create().stream()
 				.collect(Collectors.toConcurrentMap(Employee::getGender, e->1, (oldCount, newCount)  -> oldCount + newCount));
@@ -107,7 +110,8 @@ public class _012_Collectors_Methods {
 		.collect(Collectors.toConcurrentMap(Employee::getGender, e->1, (oldCount, newCount)  -> oldCount + newCount, 
 				ConcurrentHashMap<Gender,Integer>::new)).forEach((x,y)->System.out.println(x +":"+ y));;
 				
-		//Collectors collectingAndThen(Collector<T,A,R> downstream, Function<R,RR> finisher) adapts a Collector to perform an additional finishing transformation.
+		//Collectors collectingAndThen(Collector<T,A,R> downstream, Function<R,RR> finisher) adapts a Collector to perform an additional finishing 
+		//transformation.
 		/*
 		We can convert the result of the collector to a different type.
 		The first argument is a collector that collects the data. The second argument is a finisher which converts the result.
@@ -115,7 +119,41 @@ public class _012_Collectors_Methods {
 		System.out.println(Employee.create().stream()
 		.collect(Collectors.collectingAndThen(Collectors.toList(), result->Collections.unmodifiableList(result))));
 
+	
 		
+		System.out.println("=================Mapping=================");
+		//think of it like (an extended) map() method of Streams. map() method transforms the object whereas mapping() does transformation
+		// as well as collect the object.
+		//Collectors mapping(Function<? super T,? extends U> mapper, Collector<? super U,A,R> downstream) adapts a Collector accepting elements of 
+		//type U to one accepting elements of type T by applying a mapping function.
+		List<Employee.Gender> listMapping = Employee.create().stream()
+		.collect(Collectors.mapping(Employee::getGender, Collectors.toList()));
+		System.out.println(listMapping);
+		
+		Set<Employee.Gender> setMapping = Employee.create().stream()
+		.collect(Collectors.mapping(Employee::getGender, Collectors.toSet()));
+		System.out.println(setMapping);
+		
+		Long mapping2 = Employee.create().stream()
+		.collect(Collectors.mapping(Employee::getGender, Collectors.counting()));
+		System.out.println(mapping2);
+		
+		
+		
+		System.out.println("===================Reducing=====================");
+		//similar to reduce() method in Streams
+		//Collectors reducing(BinaryOperator<T> op) returns a Collector to reduce its input elements under a specified BinaryOperator.
+		Map<Gender, Optional<Employee>> m9 = Employee.create().stream()
+		.collect(Collectors.groupingBy(Employee::getGender, Collectors.reducing((Employee x,Employee y) -> x.getIncome()>y.getIncome()?x:y)));
+		System.out.println(m9);
+		
+		//Collectors reducing(U identity, Function<? super T,? extends U> mapper, BinaryOperator<U> op) returns a Collector to reduce its input
+		//elements under a specified mapping function and BinaryOperator.
+		Map<Gender, Double> m10 = Employee.create().stream()
+		.collect(Collectors.groupingBy(Employee::getGender, Collectors.reducing(0.0,Employee::getIncome, Double::sum)));
+		System.out.println(m10);
+		
+				
 		
 		System.out.println("=================Joining================");
 		/*
@@ -143,38 +181,22 @@ public class _012_Collectors_Methods {
 		
 		
 		
-		System.out.println("=================Mapping(Reduce operation)(like SQL)================");
-		//Collectors mapping(Function<? super T,? extends U> mapper, Collector<? super U,A,R> downstream) adapts a Collector accepting elements of 
-		//type U to one accepting elements of type T by applying a mapping function.
-		List<Employee.Gender> listMapping = Employee.create().stream()
-		.collect(Collectors.mapping(Employee::getGender, Collectors.toList())); //(from Employee stream-->get Gender-->create list of genders)
-		System.out.println(listMapping);
-		
-		Set<Employee.Gender> setMapping = Employee.create().stream()
-		.collect(Collectors.mapping(Employee::getGender, Collectors.toSet()));
-		System.out.println(setMapping);
-		
-		Long mapping2 = Employee.create().stream()
-		.collect(Collectors.mapping(Employee::getGender, Collectors.counting()));
-		System.out.println(mapping2);
-		
-		
-		
 		System.out.println("=================Grouping================");
 		/*
 		 The groupingBy() method from the Collectors class returns a collector that groups the data before collecting them in a Map.
-		 It is similar to "group by" clause in SQL
+		 It is similar to "group by" clause in SQL.
 		 classifier function generates the keys in the map. collector performs a reduction operation on the values associated with each key. The 
 		 third version allows us to specify a Supplier used as the factory to get the Map object.
 		 */
 		
-		//Collectors groupingBy(Function<? super T,? extends K> classifier) returns a Collector implementing a "group by" operation on input elements of type T.
+		//Collectors groupingBy(Function<? super T,? extends K> classifier) returns a Collector implementing a "group by" operation on input elements 
+		//of type T.
 		Map<Gender, List<Employee>> m1 =Employee.create().stream()
 		.collect(Collectors.groupingBy(Employee::getGender));
 		System.out.println(m1);
 		
-		//Collectors groupingBy(Function<? super T,? extends K> classifier, Collector<? super T,A,D> downstream) returns a Collector implementing a cascaded 
-		//"group by" operation on input elements of type T.
+		//Collectors groupingBy(Function<? super T,? extends K> classifier, Collector<? super T,A,D> downstream) returns a Collector implementing 
+		//a cascaded "group by" operation on input elements of type T.
 		Map<Gender, String> m2= Employee.create().stream()
 		.collect(Collectors.groupingBy(Employee::getGender, Collectors.mapping(Employee::getName, Collectors.joining(", "))));
 		System.out.println(m2);
@@ -238,70 +260,29 @@ public class _012_Collectors_Methods {
 		
 		
 		
-		System.out.println("===================Reducing (SQL where clause and returns all columns)=====================");
-		//Collectors reducing(BinaryOperator<T> op) returns a Collector to reduce its input elements under a specified BinaryOperator.
-		Map<Gender, Optional<Employee>> m9 = Employee.create().stream()
-		.collect(Collectors.groupingBy(Employee::getGender, Collectors.reducing((Employee x,Employee y) -> x.getIncome()>y.getIncome()?x:y)));
-		System.out.println(m9);
-		
-		//Collectors reducing(U identity, Function<? super T,? extends U> mapper, BinaryOperator<U> op) returns a Collector to reduce its input elements under 
-		//a specified mapping function and BinaryOperator.
-		Map<Gender, Double> m10 = Employee.create().stream()
-		.collect(Collectors.groupingBy(Employee::getGender, Collectors.reducing(0.0,Employee::getIncome, Double::sum)));
-		System.out.println(m10);
-		
-		
-		
 		System.out.println("=================Summing===================");
-		//Collectors summingDouble(ToDoubleFunction<? super T> mapper) returns a Collector that produces the sum of a double-valued function applied to the input elements.
+		//Collectors summingDouble(ToDoubleFunction<? super T> mapper) returns a Collector that produces the sum of a double-valued function 
+		//applied to the input elements.
 		Double m11 = Employee.create().stream()
 		.collect(Collectors.summingDouble(Employee::getIncome));
 		System.out.println(m11);
 		
-		//Collectors summingInt(ToIntFunction<? super T> mapper) returns a Collector that produces the sum of a integer-valued function applied to the input elements.
+		//Collectors summingInt(ToIntFunction<? super T> mapper) returns a Collector that produces the sum of a integer-valued function applied 
+		//to the input elements.
 		Integer m12 = Employee.create().stream()
 		.map((Employee e) -> (int)e.getIncome())
 		.collect(Collectors.summingInt(e->e));
 		System.out.println(m12);
 	    
-	    //Collectors summingLong(ToLongFunction<? super T> mapper) returns a Collector that produces the sum of a long-valued function applied to the input elements.
+	    //Collectors summingLong(ToLongFunction<? super T> mapper) returns a Collector that produces the sum of a long-valued function applied 
+		//to the input elements.
 		Long m13 = Employee.create().stream()
 		.map((Employee e) -> (long)e.getIncome())
 		.collect(Collectors.summingLong(e->e));
 		System.out.println(m13);
 		
 		
-	    
-	    System.out.println("=================Averaging==================");
-	    //Collectors averagingDouble(ToDoubleFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of a double-valued function applied 
-	    //to the input elements.
-	    Double avg1 = Employee.create().stream()
-	    .collect(Collectors.averagingDouble(Employee::getIncome));
-	    System.out.println(avg1);
-	    
-	    //Collectors averagingInt(ToIntFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of an integer-valued function applied 
-	    //to the input elements.
-		Double avg2 = Employee.create().stream() //averagingInt() returns double
-		.map((Employee e) -> (int)e.getIncome())
-		.collect(Collectors.averagingInt(e->e));
-		System.out.println(avg2);
 		
-		//Collectors averagingLong(ToLongFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of a long-valued function applied 
-		//to the elements.
-		Double avg3 = Employee.create().stream() //averagingLong() returns double
-		.map((Employee e) -> (long)e.getIncome())
-		.collect(Collectors.averagingLong(e->e));
-		System.out.println(avg3);	
-		
-		
-		
-		System.out.println("==================Counting=================");
-		//Collectors counting() returns a Collector accepting elements of type T that counts the number of input elements.
-		Long count = Employee.create().stream().collect(Collectors.counting());
-		System.out.println(count);
-		
-		
-				
 		System.out.println("====================Min & Max==================");
 		//Collectors minBy(Comparator<? super T> comparator) returns a Collector that produces the minimal element according to a given Comparator, 
 		//described as an Optional<T>.
@@ -316,7 +297,37 @@ public class _012_Collectors_Methods {
 		System.out.println(max);	
 		
 		
+	    
+	    System.out.println("=================Averaging==================");
+	    //Collectors averagingDouble(ToDoubleFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of a double-valued 
+	    //function applied to the input elements.
+	    Double avg1 = Employee.create().stream()
+	    .collect(Collectors.averagingDouble(Employee::getIncome));
+	    System.out.println(avg1);
+	    
+	    //Collectors averagingInt(ToIntFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of an integer-valued function 
+	    //applied to the input elements.
+		Double avg2 = Employee.create().stream() //averagingInt() returns double
+		.map((Employee e) -> (int)e.getIncome())
+		.collect(Collectors.averagingInt(e->e));
+		System.out.println(avg2);
 		
+		//Collectors averagingLong(ToLongFunction<? super T> mapper) returns a Collector that produces the arithmetic mean of a long-valued function 
+		//applied to the elements.
+		Double avg3 = Employee.create().stream() //averagingLong() returns double
+		.map((Employee e) -> (long)e.getIncome())
+		.collect(Collectors.averagingLong(e->e));
+		System.out.println(avg3);	
+		
+		
+		
+		System.out.println("==================Counting=================");
+		//Collectors counting() returns a Collector accepting elements of type T that counts the number of input elements.
+		Long count = Employee.create().stream().collect(Collectors.counting());
+		System.out.println(count);
+		
+		
+
 	    System.out.println("=================Summarizing===================");
 	    /*
 	    The java.util package contains three classes to collect statistics:
@@ -325,14 +336,14 @@ public class _012_Collectors_Methods {
 		IntSummaryStatistics
 		We can use them to compute the summary statistics on any group of numeric data.
 	     */
-	    //Collectors summarizingDouble(ToDoubleFunction<? super T> mapper) returns a Collector which applies an double-producing mapping function, and returns summary 
-	    //statistics for the resulting values.
+	    //Collectors summarizingDouble(ToDoubleFunction<? super T> mapper) returns a Collector which applies an double-producing mapping function, 
+	    //and returns summary statistics for the resulting values.
 	    DoubleSummaryStatistics stat1 = Employee.create().stream()
 	    .collect(Collectors.summarizingDouble(Employee::getIncome));
 	    System.out.println(stat1);
 	    
-	    //Collectors summarizingInt(ToIntFunction<? super T> mapper) returns a Collector which applies an int-producing mapping function, and returns summary statistics 
-	    //for the resulting values.
+	    //Collectors summarizingInt(ToIntFunction<? super T> mapper) returns a Collector which applies an int-producing mapping function, and 
+	    //returns summary statistics for the resulting values.
 	    IntSummaryStatistics  stat2 = Employee.create().stream()
 	    .map((Employee e) -> (int)e.getIncome())
 	    .collect(Collectors.summarizingInt(e->e));
@@ -343,12 +354,15 @@ public class _012_Collectors_Methods {
 	    System.out.println(stat2.getMin());
 	    System.out.println(stat2.getSum());	    
 	    
-	    //Collectors summarizingLong(ToLongFunction<? super T> mapper) returns a Collector which applies an long-producing mapping function, and returns summary statistics 
-	    //for the resulting values.
-	    LongSummaryStatistics  stat3 = Employee.create().stream()
-	    .map((Employee e) -> (long)e.getIncome())
-	    .collect(Collectors.summarizingLong(e->e));
-	    System.out.println(stat3);
-    
-	}
+	    //Collectors summarizingLong(ToLongFunction<? super T> mapper) returns a Collector which applies an long-producing mapping function, 
+	    //and returns summary statistics for the resulting values.
+	    /*
+		The Collectors class contains methods to compute the summary statistics for the specific type of numeric data.
+
+		Collectors.summarizingDouble() returns a DoubleSummaryStatistics.
+		Collectors.summarizingLong() returns a LongSummaryStatistics.
+		Collectors.summarizingInt() returns a IntSummaryStatistics.
+		 */
+		System.out.println(Employee.create().stream().collect(Collectors.summarizingDouble(Employee::getIncome)));
+   	}
 }

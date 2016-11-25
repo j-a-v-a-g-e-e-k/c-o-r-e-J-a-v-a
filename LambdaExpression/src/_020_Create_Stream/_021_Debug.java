@@ -5,7 +5,7 @@
  This method exists mainly to support debugging, where you want to see the elements as they flow past a certain point in a pipeline
  */
 
-package _099_Streams;
+package _020_Create_Stream;
 
 import java.time.LocalTime;
 import java.util.stream.IntStream;

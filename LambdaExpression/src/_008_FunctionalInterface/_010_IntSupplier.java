@@ -18,8 +18,6 @@ public class _010_IntSupplier {
 				return previousValue;
 			}
 		};	
-		System.out.println(fib.getAsInt());
-		System.out.println();
 		//state of IntSupplier object will change with every generation, and the changed state will be used to generate next integer.
 		IntStream.generate(fib).limit(10).forEach(System.out::println);
 	}

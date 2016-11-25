@@ -2,7 +2,7 @@
 Given a number k, and a count n, find the total of double of n even numbers starting with k, where sqrt of each number is > 20
  */
 
-package _099_Streams;
+package _020_Create_Stream;
 
 import java.util.stream.Stream;
 
