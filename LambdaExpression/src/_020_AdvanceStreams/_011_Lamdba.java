@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
-import _099_helper.TimeUtil;
+import _099_HelperClasses.TimeUtil;
 
 public class _011_Lamdba {
 	public static void main(String[] args){

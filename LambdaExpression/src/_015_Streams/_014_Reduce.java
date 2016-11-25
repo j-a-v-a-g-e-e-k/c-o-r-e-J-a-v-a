@@ -65,8 +65,8 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import _099_helper.Employee;
-import _099_helper.Employee.Gender;
+import _099_HelperClasses.Employee;
+import _099_HelperClasses.Employee.Gender;
 
 public class _014_Reduce {
 	public static void main(String[] args){

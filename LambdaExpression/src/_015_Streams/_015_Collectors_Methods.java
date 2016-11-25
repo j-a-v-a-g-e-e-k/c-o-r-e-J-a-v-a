@@ -33,8 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import _099_helper.Employee;
-import _099_helper.Employee.Gender;
+import _099_HelperClasses.Employee;
+import _099_HelperClasses.Employee.Gender;
 
 public class _015_Collectors_Methods {
 	public static void main(String[] args){

@@ -7,7 +7,7 @@ package _020_AdvanceStreams;
 import java.util.Arrays;
 import java.util.List;
 
-import _099_helper.TimeUtil;
+import _099_HelperClasses.TimeUtil;
 
 public class _012_Performance {
 	public static void main(String[] args) {

@@ -13,8 +13,8 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import _099_helper.Employee;
-import _099_helper.Employee.Gender;
+import _099_HelperClasses.Employee;
+import _099_HelperClasses.Employee.Gender;
 
 public class _012_Stream_Methods {
 	public static void main(String[] args){

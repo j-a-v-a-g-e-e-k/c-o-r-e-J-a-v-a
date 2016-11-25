@@ -1,4 +1,4 @@
-package _099_helper;
+package _099_HelperClasses;
 
 public class TimeUtil {
 	public static void timeIt(Runnable block){

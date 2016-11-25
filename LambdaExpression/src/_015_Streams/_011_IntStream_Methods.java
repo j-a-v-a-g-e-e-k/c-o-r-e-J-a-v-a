@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import _099_helper.Functions;
+import _099_HelperClasses.Functions;
 
 public class _011_IntStream_Methods {
 	public static void main(String[] args){

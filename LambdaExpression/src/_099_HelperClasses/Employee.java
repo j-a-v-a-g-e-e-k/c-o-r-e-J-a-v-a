@@ -1,4 +1,4 @@
-package _099_helper;
+package _099_HelperClasses;
 
 import java.util.ArrayList;
 import java.util.Arrays;

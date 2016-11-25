@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import _099_helper.Employee;
+import _099_HelperClasses.Employee;
 
 public class _015_Collect {
 	public static void main(String[] args){
