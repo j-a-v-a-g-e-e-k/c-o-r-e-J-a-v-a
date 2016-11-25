@@ -34,9 +34,9 @@ public class _020_Lazy_Evaluation {
 		
 		System.out.println("Creating Stream ..");
 	      Stream<Integer> stream = numbers.stream()
-	             .filter(_019_Performance::isGT3)
-	             .filter(_019_Performance::isEven)
-	             .map(_019_Performance::doubleIt);
+	             .filter(_012_Performance::isGT3)
+	             .filter(_012_Performance::isEven)
+	             .map(_012_Performance::doubleIt);
 	      
 	    System.out.println("Invoking Stream ..");
 	    System.out.println(stream.findFirst());
