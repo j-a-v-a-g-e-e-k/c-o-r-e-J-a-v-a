@@ -28,6 +28,8 @@ class ChildUtil extends ParentUtil{
 		strFunc = ChildUtil.super::append; 
 		s=  strFunc.apply("meghna","jain"); 
 		System.out.println(s);
+		
+		BiFunction<ChildUtil, String, String> ii=ChildUtil::append2;
 	}
 
 	@Override
@@ -35,6 +37,11 @@ class ChildUtil extends ParentUtil{
 		System.out.println("child append");
 		return s1+s2;
 	}  
+	
+	public String append2(String s1){
+		System.out.println("child append");
+		return s1;
+	} 
 }
 
 class ParentUtil{

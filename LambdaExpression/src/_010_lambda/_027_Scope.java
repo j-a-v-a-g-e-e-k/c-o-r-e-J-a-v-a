@@ -12,7 +12,6 @@ package _010_lambda;
 import java.util.function.Function;
 
 public class _027_Scope {
-	String s0="meghna";
 	public static void main(String[] args){
 		_027_Scope obj = new _027_Scope();
 		obj.fn1(); obj.fn2(); obj.fn3(); obj.fn4(); obj.fn5(); obj.fn6(); obj.fn7();
@@ -64,6 +63,7 @@ public class _027_Scope {
 	}
 	
 	//We can change the non-local variable in lambda expression.
+	String s0="meghna";
 	public void fn6(){
 		final String s="bimal";
 		Function<String, String> s2 = x-> {s0="bharat"; return x+s0;};

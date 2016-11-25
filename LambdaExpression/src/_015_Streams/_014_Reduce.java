@@ -3,6 +3,9 @@ The reduce() operation combines all elements in a stream to produce a single val
 
 The reduce operation takes two parameters called a seed (initial value) and an accumulator.
 
+You can think of the identity element as an element which does not alter the result of the reduction operation. For example, if you are trying 
+to find the product of all the elements in a stream of numbers, the identity element would be the number 1.
+
 The accumulator is a function. If the stream is empty, the seed is the result.
 
 The seed and an element are passed to the accumulator, which returns partial result. And then the partial result and the next element are passed 
@@ -19,8 +22,43 @@ The Stream<T> interface contains a reduce() method to perform the reduce operati
 Optional<T> reduce(BinaryOperator<T> accumulator)
 T  reduce(T identity, BinaryOperator<T> accumulator)
 <U> U reduce(U identity, BiFunction<U,? super  T,U> accumulator, BinaryOperator<U> combiner)
- */
 
+
+ filter: 0 <= number of elements in the output <= number of input
+ parameter: Stream<T> filter takes Predicate<T>
+    
+ map transforms values
+ number of output == number of input
+ no guarantee on the type of the output with respect to the type of the input
+ parameter:  Stream<T> map takes Function<T, R> to return Stream<R>
+   
+ both filter and map stay within their swimlanes
+ 
+ reduce cuts across the swimlanes
+ 
+ reduce on Stream<T> takes two parameters:
+ first parameter is of type T
+ second parameter is of type BiFunction<R, T, R> to produce a result of R
+ 
+        filter      map           reduce
+                                  0.0
+                                   \
+ x1       |                         \
+---------------------------          \
+ x2       ->          x2'     ->      +
+---------------------------            \
+ x3       |                             \
+---------------------------              \
+ x4       ->          x4'      ->         +
+---------------------------                \
+                                            \
+
+
+
+      1            2             3           4
+      |           |              |           |
+1 -> *  -> 1 ->   *  -> 2   ->   *  -> 6  -> * -> 24   
+ */
 package _015_Streams;
 
 import java.util.Optional;

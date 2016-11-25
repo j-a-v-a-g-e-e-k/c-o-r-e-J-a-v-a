@@ -19,7 +19,7 @@ Types of Method References
 There are six types of method reference.
 
 TypeName::staticMethod - reference to a static method of a class, an interface, or an enum
-objectRef::instanceMethod - reference to an instance method
+objectRef::instanceMethod - reference to an instance method from a object
 ClassName::instanceMethod - reference to an instance method from a class
 TypeName.super::instanceMethod - reference to an instance method from the supertype of an object
 ClassName::new - reference to the constructor of a class
@@ -39,7 +39,7 @@ public class _021_StaticMethodReference {
 	
 	public static void fn1(){
 		// Using  a  lambda  expression
-		Function<Integer, String> func1  = x -> Integer.toBinaryString(x); //static method call. Methods with parameters
+		Function<Integer, String> func1  = x -> Integer.toBinaryString(x); //static method call
 		System.out.println(func1.apply(10));
 
 		// Using  a  method  reference

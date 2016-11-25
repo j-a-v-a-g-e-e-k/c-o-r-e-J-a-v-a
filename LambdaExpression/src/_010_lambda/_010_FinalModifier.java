@@ -6,9 +6,10 @@ public class _010_FinalModifier {
 		myInterface fn1 = (final String x, final String y) -> x.length() + y.length();
 		System.out.println(fn1.getLength("bimal", "jain"));
 		
-		//We can just use one modifier as follows.
+		//We can also use just one modifier as follows.
 		myInterface fn2 = (final String x, String y) -> {
-			// x="vimal"; this is not allowed
+			//final variables cannot be modified. below is not allowed
+			// x="vimal"; 
 			y="bakliwal";
 			return x.length() + y.length();};
 		System.out.println(fn2.getLength("bimal", "jain"));

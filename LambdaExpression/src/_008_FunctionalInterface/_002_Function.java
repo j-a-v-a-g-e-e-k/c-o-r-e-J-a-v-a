@@ -28,17 +28,23 @@ public class _002_Function {
 		String result = fn2((x)->Integer.toString(x),3);
 		System.out.println(result);
 		
-		//create function from method reference
+		//pass as method reference
 		System.out.println(fn9(Integer::doubleValue,3));
-		//Cannot use Integer::toString, because toString() is overloaded in Integer class.
 		
-		//ERROR: Ambiguous method reference: both toString() and toString(int) from the type Integer are eligible
-		//Function<Integer,String> fn14 = Integer::toString;
-		 
+		/*Cannot use Integer::toString, because toString() is overloaded in Integer class.		
+		ERROR: Ambiguous method reference: both toString() and toString(int) from the type Integer are eligible
+		Function<Integer,String> fn14 = Integer::toString;		
+		 */
+		//The compiler doesn't know if you want to execute this:
+		Function<Integer, String> f15 = i->i.toString();
+		//or this:
+		Function<Integer, String> f16 = i->Integer.toString(i);
+		
 		//use String java.lang.Integer.toString() -- non static method
 		Supplier<String> fn13 = new Integer(2)::toString;
 		//use String java.lang.Integer.toString(int i) -- static method
 		IntFunction<String> fn11 = Integer::toString;
+		System.out.println(fn11.apply(5));
 		//use String java.lang.Integer.toString(int i, int radix) -- static method
 		BiFunction<Integer, Integer, String> fn12 = Integer::toString;
 
@@ -49,7 +55,7 @@ public class _002_Function {
 		Function<String,Integer> fn4 = (x)->Integer.parseInt(x);		
 		System.out.println(fn3.compose(fn4).apply("2222").length());
 		System.out.println(fn4.compose(fn3).apply(2222).doubleValue());
-		//compose() returns a new function. returns same result as above.
+		//compose() actually returns a new function.
 		Function<String,String> fn5 = fn3.compose(fn4);
 		System.out.println(fn5.apply("2222").length());
 
@@ -58,7 +64,7 @@ public class _002_Function {
 		//default <V> Function<T,V> andThen(Function<? super R,? extends V> after)
 		System.out.println(fn3.andThen(fn4).apply(2222).doubleValue());
 		System.out.println(fn4.andThen(fn3).apply("2222").length());
-		//andThen() returns a new function. returns same result as above.
+		//andThen() returns a new function.
 		Function<Integer,Integer> fn6 = fn3.andThen(fn4);
 		System.out.println(fn6.apply(2222).doubleValue());
 

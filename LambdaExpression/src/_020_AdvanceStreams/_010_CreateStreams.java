@@ -11,7 +11,7 @@ Create Streams from files
 Create Streams from other sources
  */
 
-package _015_Streams;
+package _020_AdvanceStreams;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class _016_More_CreateStreams {
+public class _010_CreateStreams {
 	public static void main(String[] args){
 		/*
 		Streams from Arrays
@@ -38,7 +38,7 @@ public class _016_More_CreateStreams {
 		 */
 		IntStream s1= Arrays.stream(new int[]{1,2,3});
 		Stream<Integer> s2 = Arrays.stream(new Integer[]{1,2,3});
-		//IntStream s3= Arrays.stream(new Integer[]{1,2,3}); complier error because IntStream is for primitives		
+		IntStream s3= Arrays.stream(new int[]{1,2,3}); //remember intStream is for primitives
 		Stream<String> s4 = Arrays.stream(new String[]{"bimal","meghna"});
 
 		/*
@@ -67,13 +67,6 @@ public class _016_More_CreateStreams {
 		IntStream s11 = str.chars(); //chars returns an IntStream of char values from this sequence
 		s11.filter(n ->  !Character.isDigit((char)n) &&   !Character.isWhitespace((char)n))
 		.forEach(n ->  System.out.print((char)n));
-
-		/*
-		 Streams from Regex
-		 splitAsStream(CharSequence input) method from the java.util.regex.Pattern class returns a stream of String whose elements match the pattern.
-		 */
-		str = "XML,CSS,HTML"; 
-		Pattern.compile(",").splitAsStream(str).forEach(System.out::println);
 		
 		/*
 		Java Stream From Files
@@ -95,8 +88,7 @@ public class _016_More_CreateStreams {
 		
 		//how to read a path using stream
 		Path dir = Paths.get(".");
-	    System.out.printf("%nThe file tree for %s%n", 
-	        dir.toAbsolutePath());
+	    System.out.printf("%nThe file tree for %s%n", dir.toAbsolutePath());
 	    try (Stream<Path> fileTree = Files.walk(dir)) {
 	      fileTree.forEach(System.out::println);
 	    } catch (IOException e) {
@@ -108,22 +100,25 @@ public class _016_More_CreateStreams {
 	    java.util.Random class provides ints(), longs(), and doubles() return infinite IntStream, LongStream, and DoubleStream, respectively.
 	    */
 	    IntStream s21 = new Random().ints();  
-		s21.limit(5)
-		.forEach(System.out::println);
+		s21.limit(5).forEach(System.out::println);
 
 		//We can use the nextInt() method of the Random class as the Supplier in the generate() method to achieve the same.
-	    Stream<Integer> s3= Stream.generate(new Random()::nextInt);
-	    s3.limit(5)
-	    .forEach(System.out::println);
+	    Stream<Integer> s31= Stream.generate(new Random()::nextInt);
+	    s31.limit(5) .forEach(System.out::println);
 	    
 	    //To work with only primitive values, use the generate() method of the primitive type stream interfaces.
 	    IntStream s41= IntStream.generate(new Random()::nextInt);
-	    s41.limit(5)
-	    .forEach(System.out::println);
+	    s41.limit(5).forEach(System.out::println);
 	    
 	    //To generate an infinite stream of a repeating value.
 	    IntStream.generate(() ->  0)
-	    .limit(5)
-	    .forEach(System.out::println);	
+	    .limit(5).forEach(System.out::println);		    
+
+		/*
+		 Streams from Regex
+		 splitAsStream(CharSequence input) method from the java.util.regex.Pattern class returns a stream of String whose elements match the pattern.
+		 */
+		str = "XML,CSS,HTML"; 
+		Pattern.compile(",").splitAsStream(str).forEach(System.out::println);
 	}
 }

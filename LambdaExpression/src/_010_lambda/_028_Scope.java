@@ -1,3 +1,4 @@
+//Inside Story: How lambda expression access local and instance variables
 package _010_lambda;
 
 import java.util.Arrays;
@@ -48,9 +49,9 @@ To understand what is happening, we need to refine our understanding of a lambda
 3. Values for the free variables—that is, the variables that are not parameters and not defined inside the code
 
 In our example, the lambda expression has two free variables, text and count. The data structure representing the lambda expression must store the 
-values for these variables—in our case, "Hello" and 1000. We say that these values have been captured by the lambda expression. (It’s an implementation 
-detail how that is done. For example, one can translate a lambda expression into an object with a single method, so that the values of the free variables 
-are copied into instance variables of that object.)
+values for these variables—in our case, "Hello" and 1000. We say that these values have been captured by the lambda expression. (It’s an 
+implementation detail how that is done. For example, one can translate a lambda expression into an object with a single method, so that the values 
+of the free variables are copied into instance variables of that object.)
 
 NOTE: The technical term for a block of code together with the values of free variables is a closure. In Java, lambda expressions are closures.
 
@@ -74,14 +75,13 @@ either is or could be declared as final
 	public static void enhancedForLoop(){
 		List<String> args = Arrays.asList("red","yellow","blue");
 		for(String arg: args){
-			new Thread(()->System.out.println(arg)).start();;
+			new Thread(()->System.out.println(arg)).start();; // this works
 		}
 	}
 
 	/*
 A new variable arg is created in each iteration and assigned the next value from the args array. In contrast, the scope of the variable i in 
 the preceding example was the entire loop.
-
 As a consequence of the “effectively final” rule, a lambda expression cannot mutate any captured variables.
 	 */
 	
@@ -111,7 +111,7 @@ Also even for local variables, One can find a way around the check for inappropr
 	/*
 The counter variable is effectively final—it is never changed since it always refers to the same array, so you can access it in the lambda expression.
 
-Also you cannot access default interface methods from within lambda expressions
+Also you cannot access default interface methods from within lambda expressions. But you can access static interface methods.
 	 */
 	
 	public static void fn4(){

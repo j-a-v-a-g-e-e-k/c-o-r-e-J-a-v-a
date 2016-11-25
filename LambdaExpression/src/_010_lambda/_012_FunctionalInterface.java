@@ -7,10 +7,9 @@ public interface ActionListener extends EventListener {
     public void actionPerformed(ActionEvent event);
 }
 
-ActionListener has only one method, actionPerformed. It is a functional interface. It doesn't matter what the single method is called, the Java compiler 
-will match it up to your lambda expression as long as it has a compatible method signature.
-A lambda expression represents an instance of a functional interface.
-The type of a lambda expression is a functional interface type.
+ActionListener has only one method, actionPerformed. It is a functional interface. It doesn't matter what the single method is called, 
+the Java compiler will match it up to your lambda expression as long as it has a compatible method signature.
+
 (String str) -> str.length() takes a String parameter and returns its length.
 Its type can be any functional interface type with an abstract method that takes a String as a parameter and returns an int.
 The following is an example of such a functional interface:
@@ -19,29 +18,23 @@ The following is an example of such a functional interface:
 interface Processor  {
     int  getStringLength(String str);
 }
-
 We can assign lambda expression to its functional interface instance.
-
 Processor stringProcessor = (String str) -> str.length();
 
 We cannot use the following types of methods to declare a functional interface:
-Default methods
-Static methods
-Methods inherited from the Object class
-
+1. Default methods
+2. Static methods
+3. Methods inherited from the Object class
 A functional interface can redeclare the methods in the Object class. And that method is not counted as abstract method. Therefore we can declare 
 another method used by lambda expression.
 
 @FunctionalInterface Annotation:
 @FunctionalInterface annotation is defined in the java.lang package. We can optionally use it to mark a functional interface.
-
 If the annotation @FunctionalInterface is annotated on a non-functional interface or other types such as classes, a compile-time error occurs.
-
 An interface with one abstract method is still a functional interface even we don't annotated it with @FunctionalInterface.
 
 Generic Functional Interface:
 We can use type parameters with a functional interface to create generic functional interface.
-
  */
 
 package _010_lambda;

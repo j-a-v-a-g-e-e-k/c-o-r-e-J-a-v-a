@@ -18,7 +18,7 @@ public class _025_ArrayConstructorReference {
 	public static void fn1(){
 		//using lambda expression
 		IntFunction<int[]> i1 = (x)->new int[x];
-		int[] intArray1 = i1.apply(5);
+		int[] intArray1 = i1.apply(5); //this specifies the array length
 		System.out.println(Arrays.toString(intArray1));
 		
 		Function<Integer, int[]> i3 = (x)-> new int[x];

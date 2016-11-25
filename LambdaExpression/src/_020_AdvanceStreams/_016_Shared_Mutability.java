@@ -1,4 +1,4 @@
-package _020_Create_Stream;
+package _020_AdvanceStreams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +18,10 @@ public class _016_Shared_Mutability {
 		numbers.parallelStream()
 		.filter(e -> e % 2 == 0)
 		.map(e -> e * 2)
-		.forEach(e -> doubleOfEven.add(e));
+		.forEach(e -> doubleOfEven.add(e)); //Don't do this.
 		//mutability is OK, sharing is nice, but shared mutability is devil's work
 
-		System.out.println(doubleOfEven); //Don't do this.
+		System.out.println("Shared Mutability: " + doubleOfEven); 
 
 		List<Integer> doubleOfEven2 =
 				numbers.parallelStream()
@@ -34,6 +34,8 @@ public class _016_Shared_Mutability {
 
 /*
  One possible output:
- [null, 8, 4, 8]
+ Shared Mutability: [null, 8, 4, 8]
  [4, 8, 4, 8]
+ 
+ note that during shared mutability, we get inconsistent result, whereas collectors will take care of this.
  */
