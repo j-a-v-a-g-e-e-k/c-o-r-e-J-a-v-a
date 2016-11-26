@@ -2,8 +2,8 @@ package _099_HelperClasses;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class Employee {
 
@@ -24,13 +24,11 @@ public class Employee {
 
 	public static List<Employee> create(){
 		List<Employee> list = new ArrayList<Employee>();
-
 		Employee Jake = new Employee(1,"Jake", Gender.MALE, 2000.0);
 		Employee Jack = new Employee(2,"Jack", Gender.MALE, 2000.0);
 		Employee Jane = new Employee(3,"Jane", Gender.FEMALE, 3000.0);
 		Employee Jode = new Employee(4,"Jode", Gender.MALE, 4000.0);
 		Employee Jeny = new Employee(5,"Jeny", Gender.FEMALE, 3000.0);
-
 		list=Arrays.asList(Jake, Jack, Jane, Jode, Jeny);
 		return list;
 	}
@@ -38,6 +36,16 @@ public class Employee {
 	public boolean isMale() {
 		return this.gender == Gender.MALE;
 	}	
+	
+	public static Optional<Employee> getEmployee(){
+		Employee emp = new Employee(1,"Bimal", Gender.MALE, 3000.0);
+		Optional<Employee> optEmp = Optional.of(emp);
+		return optEmp;
+	}
+	
+	public static Optional<Double> getOptionalSalary(Employee e){
+		return Optional.of(new Double(e.getIncome() + 10000.0));
+	}
 	
 	public int getId() {
 		return id;
