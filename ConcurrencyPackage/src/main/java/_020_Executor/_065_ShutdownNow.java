@@ -27,9 +27,9 @@ public class _065_ShutdownNow {
 
 	static class SleepOneSecond implements Callable<Void> {
 		@Override
-		public Void call() throws Exception {
-			System.out.println(Thread.currentThread().getName());
+		public Void call() throws Exception {			
 			Thread.sleep(1000);
+			System.out.println(Thread.currentThread().getName());
 			return null;
 		}
 	}

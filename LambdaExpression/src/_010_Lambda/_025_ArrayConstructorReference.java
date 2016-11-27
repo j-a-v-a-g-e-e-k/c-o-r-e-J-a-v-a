@@ -4,7 +4,7 @@
 ArrayTypeName::new
 int[]::new is calling new int[]. new int[] requires an int type value as the array length, therefore the int[]::new needs an int type input value.
  */
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.Arrays;
 import java.util.function.Function;

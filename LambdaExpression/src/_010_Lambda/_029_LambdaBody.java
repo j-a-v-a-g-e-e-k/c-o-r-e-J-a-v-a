@@ -3,7 +3,7 @@ We can use statements such as break, continue, return, and throw inside the body
 We cannot use the jump statements to do non-local jump.
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.Function;
 

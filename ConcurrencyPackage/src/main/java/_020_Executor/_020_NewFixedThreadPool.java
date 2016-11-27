@@ -1,9 +1,12 @@
 /*
-Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue.
+Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. At any point, at most nThreads threads will 
+be active processing tasks. If additional tasks are submitted when all threads are active, they will wait in the queue until a thread is available. 
+If any thread terminates due to a failure during execution prior to shutdown, a new one will take its place if needed to execute subsequent tasks. 
+The threads in the pool will exist until it is explicitly shutdown.
 
 public static ExecutorService newFixedThreadPool(int nThreads) {
     return new ThreadPoolExecutor(nThreads, nThreads,0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-} //queue is unbounded
+}
     
 If you want to process all submitted tasks in order of arrival, just use newFixedThreadPool(1)
 */

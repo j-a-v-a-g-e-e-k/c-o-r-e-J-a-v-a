@@ -1,5 +1,5 @@
 //Inside Story: How lambda expression access local and instance variables
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.Arrays;
 import java.util.List;

@@ -38,20 +38,18 @@ public class _001_Runnable {
 			 */
 			executor.execute(worker);			
 		}
-		/*
-		the java process never stops! Executors have to be stopped explicitly - otherwise they keep listening for new tasks.
-		shutdown() will make the executor accept no new threads and finish all existing threads in the queue 		
-		*/
 		executor.shutdown();
-		
 		/*
-		while shutdownNow() interrupts all running tasks and shut the executor down immediately.
-		every non-terminated future will throw exceptions if you call shutdownNow()
+		Executors have to be stopped explicitly - otherwise they keep listening for new tasks.
+		shutdown() will make the executor accept no new threads and finish all existing threads in the queue. 		
+
 		executor.shutdownNow();
+		shutdownNow() interrupts all running tasks and shut the executor down immediately.
+		every non-terminated future will throw exceptions if you call shutdownNow()
 		
-		The executor shuts down softly by waiting a certain amount of time for termination of currently running tasks. 
-		After a maximum of five seconds the executor finally shuts down by interrupting all running tasks.
 		executor.awaitTermination(5, TimeUnit.SECONDS);
+		The executor shuts down softly by waiting a certain amount of time for termination of currently running tasks. 
+		After a maximum of five seconds the executor finally shuts down by interrupting all running tasks.		
 		*/
 	}
 }

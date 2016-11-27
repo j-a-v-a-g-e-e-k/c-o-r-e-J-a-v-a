@@ -5,7 +5,7 @@ The behaviour of CalculatorEngine method is parameterized.
 Changing the behavior of a method through its parameters is called behavior parameterization.
 In behavior parameterization we pass logic encapsulated in lambda expressions to methods as if was data.
  */
-package _010_lambda;
+package _010_Lambda;
 
 class _013_BehaviourParameter {
 	public static void main(String[] args){

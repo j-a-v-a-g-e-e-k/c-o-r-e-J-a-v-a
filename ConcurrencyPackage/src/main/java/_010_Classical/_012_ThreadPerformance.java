@@ -30,11 +30,16 @@ public class _012_ThreadPerformance {
 					Thread worker = new Thread(task);
 					threads.add(worker);
 				}
+				/*
+				Is it expensive to create the Thread object or to actually start the thread?
+				Creating a Thread object is very cheap. You just pay the price of calling the constructor. It's the start() method that takes up space 
+				(native calls, stack memory, etc.) On the other hand if you create plenty of threads, consider creating (and starting them) in advance 
+				and having a pool. This is already done for you, check out Executors class.
+				 */
 				long time = System.nanoTime() - start;
 				System.out.printf("Time to create a new Thread %.1f us%n", time / runs / 1000.0);
-				for (int i = 0; i < runs; i++)
-					//start method takes most time.
-					threads.get(i).start(); 
+				for (int i = 0; i < runs; i++)					
+					threads.get(i).start(); //start method takes most time.
 				for (int i = 0; i < runs; i++)
 					queue.take();
 				long time2 = System.nanoTime() - start;

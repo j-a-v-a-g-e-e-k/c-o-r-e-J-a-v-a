@@ -10,7 +10,7 @@ We call instance bounded receiver since the receiver is bounded to the instance.
 ClassName is unbounded receiver since the receiver is bounded later.
 
  */
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

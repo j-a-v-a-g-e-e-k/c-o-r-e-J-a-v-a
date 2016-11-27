@@ -8,10 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class _026_NewScheduledThreadPool {
-
 	public static void main(String[] args) throws InterruptedException{
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-
 		Runnable task = () -> {
 		    try {
 		        TimeUnit.SECONDS.sleep(2);
@@ -21,7 +19,6 @@ public class _026_NewScheduledThreadPool {
 		        System.err.println("task interrupted");
 		    }
 		};
-
 		executor.scheduleWithFixedDelay(task, 0, 1, TimeUnit.SECONDS);
 	}
 }

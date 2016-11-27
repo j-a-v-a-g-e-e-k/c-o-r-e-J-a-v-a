@@ -23,13 +23,12 @@ public class _061_ExceptionHandling {
 		//check method call one at a time
 //		demo.withRunnableInExecute(); //throws exception
 //		demo.withRunnableInSubmit(); //no exception is thrown, which is a problem
-		demo.withCallableInSubmit(); //no exception
-//		demo.withRunnableInCustomSubmit(); //get custom exception message		
+//		demo.withCallableInSubmit(); //no exception is thrown, which is a problem
+		demo.withRunnableInCustomSubmit(); //solution. get custom exception message	
 		System.out.println("In main thread");
 	}
 	
 	public void withRunnableInExecute(){
-		System.out.println("withExecute");
 		ExecutorService service = Executors.newFixedThreadPool(1);
 		service.execute(new Runnable(){
 			public void run(){
@@ -43,22 +42,7 @@ public class _061_ExceptionHandling {
 	}
 	
 	public void withRunnableInSubmit(){
-		System.out.println("withSubmit");
 		ExecutorService service = Executors.newFixedThreadPool(1);
-		service.submit(new Runnable(){
-			public void run(){
-				int a=4, b = 0;
-				System.out.println("a and b="+a+":"+b);
-				System.out.println("a/b:"+(a/b));
-				System.out.println("Thread Name in Runnable after divide by zero:"+Thread.currentThread().getName());
-			}
-		});
-		service.shutdown();
-	}
-
-	public void withRunnableInCustomSubmit() {
-		System.out.println("creating service");
-		ExtendedExecutor service = new ExtendedExecutor();
 		service.submit(new Runnable(){
 			public void run(){
 				int a=4, b = 0;
@@ -71,7 +55,6 @@ public class _061_ExceptionHandling {
 	}
 	
 	public void withCallableInSubmit() {
-		System.out.println("creating service");
 //		ExtendedExecutor service = new ExtendedExecutor();
 		ExecutorService service = Executors.newFixedThreadPool(1);
 		Future<Object> future = service.submit(new Callable<Object>(){
@@ -81,6 +64,19 @@ public class _061_ExceptionHandling {
 				System.out.println("a/b:"+(a/b));
 				System.out.println("Thread Name in Runnable after divide by zero:"+Thread.currentThread().getName());
 				return null;
+			}
+		});
+		service.shutdown();
+	}
+
+	public void withRunnableInCustomSubmit() {
+		ExtendedExecutor service = new ExtendedExecutor();
+		service.submit(new Runnable(){
+			public void run(){
+				int a=4, b = 0;
+				System.out.println("a and b="+a+":"+b);
+				System.out.println("a/b:"+(a/b));
+				System.out.println("Thread Name in Runnable after divide by zero:"+Thread.currentThread().getName());
 			}
 		});
 		service.shutdown();

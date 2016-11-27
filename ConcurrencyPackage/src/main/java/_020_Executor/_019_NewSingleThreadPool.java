@@ -1,3 +1,13 @@
+/*
+Creates an Executor that uses a single worker thread operating off an unbounded queue. (Note however that if this single thread terminates due to 
+a failure during execution prior to shutdown, a new one will take its place if needed to execute subsequent tasks.) Tasks are guaranteed to execute 
+sequentially, and no more than one task will be active at any given time. Unlike the otherwise equivalent newFixedThreadPool(1) the returned executor 
+is guaranteed not to be reconfigurable to use additional threads.
+
+public static ExecutorService newSingleThreadExecutor() {
+     return new FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>())); }
+ */
+
 package _020_Executor;
 
 import java.util.ArrayList;

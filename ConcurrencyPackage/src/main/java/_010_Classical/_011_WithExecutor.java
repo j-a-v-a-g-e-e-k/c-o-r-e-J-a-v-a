@@ -10,11 +10,9 @@ import java.util.concurrent.Future;
 
 class MyRunnable3 implements Runnable {
 	private final long countUntil;
-
 	MyRunnable3(long countUntil) {
 		this.countUntil = countUntil;
 	}
-
 	public void run() {
 		long sum = 0;
 		for (long i = 1; i < countUntil; i++) {

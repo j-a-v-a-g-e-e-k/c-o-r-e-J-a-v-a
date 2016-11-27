@@ -1,11 +1,16 @@
-//Demo on ExecutorService vs. ExecutorCompletionService
+/*Demo on ExecutorService vs. ExecutorCompletionService
 
+A CompletionService that uses a supplied Executor to execute tasks. This class arranges that submitted tasks are, upon completion, 
+placed on a queue accessible using take().
+take() retrieves and removes the Future representing the next completed task, waiting if none are yet present.	
+*/
 package _020_Executor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +18,7 @@ import java.util.concurrent.Future;
 
 public class _060_ExecutorCompletionService {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		_060_ExecutorCompletionService demo = new _060_ExecutorCompletionService();
 		demo.completionServiceDemo();
 		demo.executorServiceDemo();
@@ -58,7 +63,7 @@ public class _060_ExecutorCompletionService {
 		executorService.shutdownNow();
 	}
 
-	public void completionServiceDemo (){
+	public void completionServiceDemo () throws InterruptedException, ExecutionException{
 		ExecutorService executorService = Executors.newFixedThreadPool(4);
 		CompletionService<Long> executorCompletionService= new ExecutorCompletionService<>(executorService );
 		List<Future<Long>> futures = new ArrayList<Future<Long>>();
@@ -67,20 +72,16 @@ public class _060_ExecutorCompletionService {
 		futures.add((Future<Long>) executorCompletionService.submit(new MyRunnable(4000)));
 		futures.add((Future<Long>) executorCompletionService.submit(new MyRunnable(100)));
 
-		Long result = null;
-		for (int i=0; i<futures.size(); i++) {
-			try {
-				//the tasks will be processed in order the result becomes available, the order tasks are completed.
-				//ie. take() will get the first available result
-				result = (Long) executorCompletionService.take().get();
-			} catch (Exception e) {}
-			//the moment we get the result we break out of the loop and cancel out all the other futures.
-			if (result != null)
-				break;
-		}		
+		//the tasks will be processed in order the result becomes available, the order tasks are completed.
+		//ie. take() will get the first available result.	
+		Long result = (Long) executorCompletionService.take().get();
+		System.out.println("completionService: " + result);
+//		System.out.println((Long) executorCompletionService.take().get()); //returns 2nd completed task
+//		System.out.println((Long) executorCompletionService.take().get()); //returns 3rd completed task
+//		System.out.println((Long) executorCompletionService.take().get()); //returns 4th completed task
+		//cancel out all the other futures.
 		for (Future<Long> f : futures)
 			f.cancel(true);
-		System.out.println("completionService: " + result);
 		executorService.shutdownNow();
 	}
 }

@@ -37,7 +37,7 @@ Generic Functional Interface:
 We can use type parameters with a functional interface to create generic functional interface.
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 @FunctionalInterface
 interface  MyInterface2<T> {

@@ -15,7 +15,7 @@ The checked exceptions thrown from the lambda expression must be compatible with
 
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 public class _011_LambdaType {
 	public static void main(String[] argv) {

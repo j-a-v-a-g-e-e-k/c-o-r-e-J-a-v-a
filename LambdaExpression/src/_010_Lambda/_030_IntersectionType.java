@@ -7,7 +7,7 @@ Lambdas allow us to make an instance that implements several interfaces using so
 We can combine as many interfaces as we want to, as long as the intersection eventually results in only a single abstract method.
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.io.Serializable;
 

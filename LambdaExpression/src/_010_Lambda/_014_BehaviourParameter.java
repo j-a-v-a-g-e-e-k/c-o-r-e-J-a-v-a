@@ -3,7 +3,7 @@ Behavior parameterization Ambiguity
 It is not always possible for the compiler to infer the type of a lambda expression.
 One such situation is passing lambda expressions to overloaded methods.
  */
-package _010_lambda;
+package _010_Lambda;
 
 public class _014_BehaviourParameter {
 

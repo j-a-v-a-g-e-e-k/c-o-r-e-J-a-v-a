@@ -1,11 +1,4 @@
-/*
-The Fork/Join Framework provides two types of tasks:
-RecursiveTask 
-RecursiveAction. 
-
-In this section we will only talk about the RecursiveTask.
-A RecursiveTask is a task that when executed it returns a value. 
- */
+// Using RecursiveTask
 package _020_Executor;
 
 import java.io.File;

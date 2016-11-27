@@ -1,7 +1,6 @@
 /**
-In the previous post "ThreadPoolexecutor in Java" we created our user defined RejectedHandler,which will be invoked if any task 
-is rejected by the ThreadPoolExecutor.In addition to defining user defined RejectedHandler,ThreadPoolExecutor provides four 
-predefined handler polices for handling the rejected task:
+In the previous example we created our user defined RejectedHandler,which will be invoked if any task is rejected by the ThreadPoolExecutor.In 
+addition to defining user defined RejectedHandler,ThreadPoolExecutor provides four predefined handler polices for handling the rejected task:
 ThreadPoolExecutor.AbortPolicy
 ThreadPoolExecutor.CallerRunsPolicy
 ThreadPoolExecutor.DiscardPolicy

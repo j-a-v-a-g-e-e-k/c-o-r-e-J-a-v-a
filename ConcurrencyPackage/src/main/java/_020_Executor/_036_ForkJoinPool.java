@@ -1,9 +1,9 @@
 /*
 RecursiveAction
-These types of tasks are not meant to return anything. These are ideal for cases where you want to do an action, such as delete a file, 
-without returning anything. This class is very similar to its predecessors. The main difference lies in the way the final value 
-(the size of the file or directory) is returned. Remember that the RecursiveAction cannot return a value. Instead, all tasks will 
-share a common counter of type AtomicLongand these will increment this common counter instead of returning the size of the file.
+These types of tasks are not meant to return anything. These are ideal for cases where you want to do an action, such as delete a file, without 
+returning anything. This class is very similar to its predecessors. The main difference lies in the way the final value (the size of the file or 
+directory) is returned. Remember that the RecursiveAction cannot return a value. Instead, all tasks will share a common counter of type 
+AtomicLong and these will increment this common counter instead of returning the size of the file.
  */
 
 package _020_Executor;

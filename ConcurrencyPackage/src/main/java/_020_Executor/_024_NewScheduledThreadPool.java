@@ -1,15 +1,19 @@
 /* 
  If you want to execute some tasks periodically or at certain time in future, use newScheduledThreadPool
+ 
+     public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+        return new ScheduledThreadPoolExecutor(corePoolSize);
+    }
 */
 package _020_Executor;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class _024_NewScheduledThreadPool {
-
 	public static void main(String[] args) throws InterruptedException{
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 

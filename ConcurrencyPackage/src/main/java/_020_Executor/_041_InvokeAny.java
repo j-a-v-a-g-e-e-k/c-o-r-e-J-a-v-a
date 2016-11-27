@@ -1,3 +1,5 @@
+//Another way of batch-submitting callables is the method invokeAny() which works slightly different to invokeAll(). 
+//Instead of returning future objects this method blocks until the first callable terminates and returns the result of that callable.
 package _020_Executor;
 
 import java.util.Arrays;
@@ -24,11 +26,8 @@ public class _041_InvokeAny {
 		    x.callable("task1", 2),
 		    x.callable("task2", 1),
 		    x.callable("task3", 3));
-//Another way of batch-submitting callables is the method invokeAny() which works slightly different to invokeAll(). 
-		//Instead of returning future objects this method blocks until the first callable terminates and returns the result of that callable.
-
 		String result = executor.invokeAny(callables);
 		System.out.println(result);
-		
+		executor.shutdown();
 	}
 }

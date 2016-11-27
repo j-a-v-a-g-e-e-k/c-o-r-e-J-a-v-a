@@ -27,7 +27,7 @@ ArrayTypeName::new - reference to the constructor of the specified array type
 
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

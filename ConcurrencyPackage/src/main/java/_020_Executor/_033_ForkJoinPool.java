@@ -1,25 +1,34 @@
-/*
- Using RecursiveTask
- */
+// Using RecursiveTask
 
 package _020_Executor;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class _033_ForkJoinPool extends RecursiveTask<Long> {
+public class _033_ForkJoinPool{
+	public static void main(String[] args){
+
+		int[] array = new int[20000];
+		for (int i=0;i<20000;i++){
+			array[i]=i;
+		}
+		System.out.println(ForkJoinPool.commonPool().invoke(new ForkJoinTask4(array,0,array.length)));
+	}
+}
+
+class ForkJoinTask4 extends RecursiveTask<Long> {
 	static final int SEQUENTIAL_THRESHOLD = 5000;
 
 	int low;
 	int high;
 	int[] array;
 
-	_033_ForkJoinPool(int[] arr, int lo, int hi) {
+	ForkJoinTask4(int[] arr, int lo, int hi) {
 		array = arr;
 		low   = lo;
 		high  = hi;
 	}
-	_033_ForkJoinPool(){
+	ForkJoinTask4(){
 		
 	}
 
@@ -35,27 +44,13 @@ public class _033_ForkJoinPool extends RecursiveTask<Long> {
 		} else {
 			System.out.println(Thread.currentThread().getName() + " else: " + low + " " + high);
 			int mid = low + (high - low) / 2;
-			_033_ForkJoinPool left  = new _033_ForkJoinPool(array, low, mid);
-			_033_ForkJoinPool right = new _033_ForkJoinPool(array, mid, high);
+			ForkJoinTask4 left  = new ForkJoinTask4(array, low, mid);
+			ForkJoinTask4 right = new ForkJoinTask4(array, mid, high);
 			left.fork(); 
 			right.fork();
 			long leftAns  = left.join(); //blocking until result is available
 			long rightAns = right.join();			
 			return leftAns + rightAns;
 		}
-	}
-
-	long sumArray(int[] array) {
-		return ForkJoinPool.commonPool().invoke(new _033_ForkJoinPool(array,0,array.length));
-	}
-
-	public static void main(String[] args){
-
-		int[] array = new int[20000];
-		for (int i=0;i<20000;i++){
-			array[i]=i;
-		}
-		_033_ForkJoinPool demo = new _033_ForkJoinPool();
-		System.out.println(demo.sumArray(array));
 	}
 }

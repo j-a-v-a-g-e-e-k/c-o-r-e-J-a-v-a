@@ -1,4 +1,4 @@
-package _010_lambda;
+package _010_Lambda;
 
 public class _010_FinalModifier {
 	public static void main(String[] args){

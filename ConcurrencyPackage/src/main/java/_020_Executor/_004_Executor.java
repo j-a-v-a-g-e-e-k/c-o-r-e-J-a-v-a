@@ -10,6 +10,15 @@ class MyExecutor implements Executor{
 		command.run();		
 	}	
 }
+
+class MyExecutor2 implements Executor{
+	@Override
+	public void execute(Runnable command) {
+		//this implementation will run in a separate thread
+		new Thread(command).start();		
+	}	
+}
+
 class MyRunnable4 implements Runnable {
 	@Override
 	public void run() {
@@ -24,5 +33,6 @@ class MyRunnable4 implements Runnable {
 public class _004_Executor {
 	public static void main(String[] args) {
 		new MyExecutor().execute(new MyRunnable4());
+		new MyExecutor2().execute(new MyRunnable4());
 	}
 }

@@ -7,7 +7,7 @@ ClassName::<TypeName>methodName
 The syntax for generic constructor reference
 ClassName<TypeName>::new
  */
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,7 +1,32 @@
 /**
+Rules of a ThreadPoolExecutor pool size
+The rules for the size of a ThreadPoolExecutor’s pool are generally miss-understood, because it doesn’t work the way that you think it ought to or 
+in the way that you want it to. Take this example. Starting thread pool size is 1, core pool size is 5, max pool size is 10 and the queue is 100.
+Sun’s way: as requests come in threads will be created up to 5, then tasks will be added to the queue until it reaches 100. When the queue is full 
+new threads will be created up to maxPoolSize. Once all the threads are in use and the queue is full tasks will be rejected. As the queue reduces 
+so does the number of active threads.
+User anticipated way: as requests come in threads will be created up to 10, then tasks will be added to the queue until it reaches 100 at which 
+point they are rejected. The number of threads will rename at max until the queue is empty. When the queue is empty the threads will die off until 
+there are corePoolSize left. The difference is that the users want to start increasing the pool size earlier and want the queue to be smaller, 
+where as the Sun method want to keep the pool size small and only increase it once the load becomes to much.
+Here are Sun’s rules for thread creation in simple terms:
+1. If the number of threads is less than the corePoolSize, create a new Thread to run a new task.
+2. If the number of threads is equal (or greater than) the corePoolSize, put the task into the queue.
+3. If the queue is full, and the number of threads is less than the maxPoolSize, create a new thread to run tasks in.
+4. If the queue is full, and the number of threads is greater than or equal to maxPoolSize, reject the task.
+The long and the short of it is that new threads are only created when the queue fills up, so if you’re using an unbounded queue then the number 
+of threads will not exceed corePoolSize.
+
+Most people want it the other way around, so that you increase the number of threads to avoid adding to the queue. When the threads are all in 
+use the queue starts to fill up.
+Using Sun’s way, I think you are going to end up with a system that runs slower when the load is light and a bit quicker as the load increases. 
+Using the other way means you are running flat out all the time to process outstanding work.
+ */
+
+/**
 ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue workQueue, 
 					ThreadFactory threadFactory, RejectedExecutionHandler handler).
-Here’s a description of what the parameters mean and how they answer the questions above:
+Here’s a description of what the parameters mean:
 • int corePoolSize – the number of threads you want to start the Thread pool off with, initially
 • int maximumPoolSize – when the core threads are busy, do you want to grow the pool size up to the maximum?
 • long keepAliveTime, TimeUnit unit – do you want to shutdown spare threads if there’s no work for them? How long should the pool wait until then?
@@ -63,8 +88,8 @@ public class _010_Queuing_DirectHandoffs {
 		}
 		@Override
 		public Void call() throws Exception {	
-			System.out.println("Job-" + jobId + " " + Thread.currentThread().getName());
 			Thread.sleep(3000);
+			System.out.println("Job-" + jobId + " " + Thread.currentThread().getName());
 			return null;
 		}
 	}
@@ -73,9 +98,9 @@ public class _010_Queuing_DirectHandoffs {
 /*
 OUTPUT: 
 Thread-1 and Thread-2 were allocated to run the Task Job1 and Job2.So the corepoolsize threads(i.e 2) are busy in running this task.
-Once the Job3 is submitted,it is not queued as we used the Direct Handoff.It therefore constructs the thread-4.
+Once the Job3 is submitted,it is not queued as we used the Direct Handoff.It therefore constructs the thread-3.
 The same apply for Job4 and Job5 as well which were run by Thread-4 and Thread-5.
-Since there were no ideal threads in ThreadPool(Since the maxpoolsize is 5 and all 5 threads were busy),
-submission of task Job6 to Job10 were rejected and were run by the Rejectionhandler. 
+Since there were no ideal threads in ThreadPool(Since the maxpoolsize is 5 and all 5 threads were busy), submission of task Job6 to Job10 were 
+rejected and were run by the Rejectionhandler. 
 */
 

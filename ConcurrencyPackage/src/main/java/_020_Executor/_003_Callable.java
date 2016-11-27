@@ -19,7 +19,7 @@ public class _003_Callable {
 		}
 		System.out.println("Task is completed, let's check result");
 		Long factorial = (Long) future.get();
-		System.out.println("Factorial of 1000000 is : " + factorial);
+		System.out.println("Factorial of 10 is : " + factorial);
 		threadpool.shutdown();
 	}
 

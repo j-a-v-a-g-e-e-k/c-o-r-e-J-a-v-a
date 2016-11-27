@@ -11,11 +11,9 @@ import java.util.List;
 
 class MyRunnable implements Runnable {
 	private final long countUntil;
-
 	MyRunnable(long countUntil) {
 		this.countUntil = countUntil;
 	}
-
 	public void run() {
 		long sum = 0;
 		for (long i = 1; i < countUntil; i++) {
@@ -26,7 +24,6 @@ class MyRunnable implements Runnable {
 }
 
 public class _010_CreatingThread {
-
 	public static void main(String[] args) {
 		List<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < 500; i++) {

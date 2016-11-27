@@ -28,6 +28,8 @@ public class _040_InvokeAll {
 			}
 		})
 		.forEach(System.out::println);
+		
+		executor.shutdown();
 	}
 }
 

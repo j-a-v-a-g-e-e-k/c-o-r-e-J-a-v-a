@@ -1,7 +1,7 @@
 /*
- In a typical Java ExecutorService application where some threads will be assigned from the internal thread pool or created on-demand 
- to perform tasks. Each ExecutorService has an associated ThreadFactory and a default ThreadFactory if the application does not specify one. 
- For non-trivial apps, it’s always a good idea to create a custom ThreadFactory. Why??
+In a typical Java ExecutorService application where some threads will be assigned from the internal thread pool or created on-demand 
+to perform tasks. Each ExecutorService has an associated ThreadFactory and a default ThreadFactory if the application does not specify one. 
+For non-trivial apps, it’s always a good idea to create a custom ThreadFactory. Why??
 1. To set a more descriptive thread name. With the default ThreadFactory, it gives thread names in the form of pool-m-thread-n, 
 such as pool-1-thread-1, pool-2-thread-1, pool-3-thread-1, etc. When analyzing a thread dump, it’s hard to know their purpose and 
 how they were started. So, using a descriptive thread name is the only clue to trace to the source where the ThreadPoolExecutor or 
@@ -49,6 +49,7 @@ class CustomThreadFactoryBuilder {
 	public CustomThreadFactoryBuilder setNamePrefix(String namePrefix) {
 		this.namePrefix = namePrefix;
 		return this;
+		
 	}
 
 	public CustomThreadFactoryBuilder setDaemon(boolean daemon) {

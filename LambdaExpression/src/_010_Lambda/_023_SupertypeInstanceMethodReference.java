@@ -8,7 +8,7 @@ ClassName.super::instanceMethod
 We use this::append to reference the current class while using Util.super::append to reference the method from parent class.
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.BiFunction;
 

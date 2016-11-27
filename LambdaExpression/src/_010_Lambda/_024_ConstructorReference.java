@@ -7,7 +7,7 @@ ClassName::new
 The keyword new refers to the constructor of the class. The compiler chooses a constructor based on the context.
  */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

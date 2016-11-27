@@ -7,7 +7,7 @@ A lambda expression can access (Read only access) final local variables or local
 A lambda expression can access (both read and write access) non-local variable (instance variables & static variables).
 */
 
-package _010_lambda;
+package _010_Lambda;
 
 import java.util.function.Function;
 

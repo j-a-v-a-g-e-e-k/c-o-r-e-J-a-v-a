@@ -6,7 +6,7 @@ Method Invocation Context
 Return Context
 Cast Context
  */
-package _010_lambda;
+package _010_Lambda;
 
 public class _018_CastContext {
 	public static void main(String[] argv) {

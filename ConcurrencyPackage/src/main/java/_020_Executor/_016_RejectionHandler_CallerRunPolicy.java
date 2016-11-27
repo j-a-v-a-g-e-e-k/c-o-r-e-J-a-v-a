@@ -1,8 +1,7 @@
 /**
 ThreadPoolExecutor.CallerRunsPolicy
 By using this handler policy in ThreadPool,the handler will invoke the rejected task in the thread which called the execute method i.e 
-the Caller which added this task to the ThreadPool. Change the method createThreadPool() to have the ThreadPoolExecutor.CallerRunsPolicy 
-as the handler policy and run the program.This handler will slowdown the task addition to the ThreadPool if there is any rejected task 
+the Caller which added this task to the ThreadPool. This handler will slowdown the task addition to the ThreadPool if there is any rejected task 
 since the caller(which adds the task to ThreadPool) will run the rejected task.
 */
 

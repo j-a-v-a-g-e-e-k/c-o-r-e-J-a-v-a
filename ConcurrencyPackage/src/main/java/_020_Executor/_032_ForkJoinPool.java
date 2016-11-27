@@ -1,25 +1,34 @@
-/*
- Using RecursiveTask
- */
+// Using RecursiveTask
 
 package _020_Executor;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class _032_ForkJoinPool extends RecursiveTask<Long> {
+public class _032_ForkJoinPool{
+	public static void main(String[] args){
+
+		int[] array = new int[20000];
+		for (int i=0;i<20000;i++){
+			array[i]=i;
+		}
+		System.out.println(ForkJoinPool.commonPool().invoke(new ForkJoinTask3(array,0,array.length)));
+	}
+}
+
+class ForkJoinTask3 extends RecursiveTask<Long> {
 	static final int SEQUENTIAL_THRESHOLD = 5000;
 
 	int low;
 	int high;
 	int[] array;
 
-	_032_ForkJoinPool(int[] arr, int lo, int hi) {
+	ForkJoinTask3(int[] arr, int lo, int hi) {
 		array = arr;
 		low   = lo;
 		high  = hi;
 	}
-	_032_ForkJoinPool(){
+	ForkJoinTask3(){
 		
 	}
 
@@ -35,27 +44,40 @@ public class _032_ForkJoinPool extends RecursiveTask<Long> {
 		} else {
 			System.out.println(Thread.currentThread().getName() + " else: " + low + " " + high);
 			int mid = low + (high - low) / 2;
-			_032_ForkJoinPool left  = new _032_ForkJoinPool(array, low, mid);
-			_032_ForkJoinPool right = new _032_ForkJoinPool(array, mid, high);
+			ForkJoinTask3 left  = new ForkJoinTask3(array, low, mid);
+			ForkJoinTask3 right = new ForkJoinTask3(array, mid, high);
 			//this version is non-parallel because it computes the right before starting to compute the left
 			long rightAns = right.compute();//blocking.
 			left.fork();
+//			try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 			long leftAns  = left.join(); 						
 			return leftAns + rightAns;
 		}
 	}
-
-	long sumArray(int[] array) {
-		return ForkJoinPool.commonPool().invoke(new _032_ForkJoinPool(array,0,array.length));
-	}
-
-	public static void main(String[] args){
-
-		int[] array = new int[20000];
-		for (int i=0;i<20000;i++){
-			array[i]=i;
-		}
-		_032_ForkJoinPool demo = new _032_ForkJoinPool();
-		System.out.println(demo.sumArray(array));
-	}
 }
+
+/*
+OUTPUT:
+With sleep:
+ForkJoinPool.commonPool-worker-1 else: 0 20000
+ForkJoinPool.commonPool-worker-1 else: 10000 20000
+ForkJoinPool.commonPool-worker-1 if: 15000 20000
+ForkJoinPool.commonPool-worker-2 if: 10000 15000
+ForkJoinPool.commonPool-worker-2 else: 0 10000
+ForkJoinPool.commonPool-worker-2 if: 5000 10000
+ForkJoinPool.commonPool-worker-3 if: 0 5000
+
+Without sleep:
+ForkJoinPool.commonPool-worker-1 else: 0 20000
+ForkJoinPool.commonPool-worker-1 else: 10000 20000
+ForkJoinPool.commonPool-worker-1 if: 15000 20000
+ForkJoinPool.commonPool-worker-1 if: 10000 15000
+ForkJoinPool.commonPool-worker-1 else: 0 10000
+ForkJoinPool.commonPool-worker-1 if: 5000 10000
+ForkJoinPool.commonPool-worker-1 if: 0 5000
+ */
