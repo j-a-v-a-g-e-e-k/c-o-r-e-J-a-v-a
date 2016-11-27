@@ -13,14 +13,13 @@ public class _082_ThenCompose
 		
 		CompletableFuture<String> task1 = CompletableFuture
 				.supplyAsync(()->{try{
-					System.out.println(Thread.currentThread().getName() + ": firstTask");
-					TimeUnit.SECONDS.sleep(2);    								
+					TimeUnit.SECONDS.sleep(2);
+					System.out.println(Thread.currentThread().getName() + ": firstTask");					    								
 				} catch (Exception e){}
 				return "1"; });
-
-		//input=yes, output=yes
+		CompletableFuture<CompletableFuture<String>> result2 = task1.thenApply(obj::secondTask);
 		//but this does not return CompletableFuture<CompletableFuture<String>>. Thats the beauty of thenComose()
-		CompletableFuture<String> result = task1.thenCompose(obj::secondTask);
+		CompletableFuture<String> result = task1.thenCompose(obj::secondTask);		
 
 		System.out.println(Thread.currentThread().getName() + ": " + result.get());
 		System.out.println(Thread.currentThread().getName() + ": My future is complete");
@@ -29,8 +28,8 @@ public class _082_ThenCompose
 	// this returns a completable future object
 	private CompletableFuture<String> secondTask(String y) {
 		try{
-			System.out.println(Thread.currentThread().getName() + ": secondTask");
 			TimeUnit.SECONDS.sleep(1);
+			System.out.println(Thread.currentThread().getName() + ": secondTask " + y);			
 		} catch (Exception e){}
 		return CompletableFuture.supplyAsync( ( ) -> y);
 	}

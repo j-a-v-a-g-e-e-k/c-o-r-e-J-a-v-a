@@ -12,8 +12,8 @@ public class _086_CompleteExceptionally
 		CompletableFuture<Integer> task1 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2); 
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						   								
 					} catch (Exception e){}
 					return 10;});
 		

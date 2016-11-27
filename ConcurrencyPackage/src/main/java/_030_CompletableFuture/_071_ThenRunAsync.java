@@ -15,7 +15,6 @@ public class _071_ThenRunAsync
 					TimeUnit.SECONDS.sleep(2);    								
 				} catch (Exception e){}
 				return "1"; })
-
 				//this task will be executed in a new thread from common ForkJoinPool
 				.thenRunAsync(()-> {System.out.println(Thread.currentThread().getName() + ": secondTask ");
 				});

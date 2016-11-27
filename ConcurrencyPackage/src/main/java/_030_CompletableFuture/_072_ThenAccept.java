@@ -10,13 +10,11 @@ public class _072_ThenAccept
     public static void main( String[] args ) throws InterruptedException, ExecutionException, TimeoutException
     {
     	CompletableFuture<Void> task1 = CompletableFuture
-    			//output=YES
     			.supplyAsync(() -> {try{
     								System.out.println(Thread.currentThread().getName() + ": firstTask");
     								TimeUnit.SECONDS.sleep(2);    								
     								} catch (Exception e){}
     								return "1"; })
-    			//input=YES, output=NO
     			.thenAccept((x)-> {System.out.println(Thread.currentThread().getName() + ": secondTask " + x);});
 
     	TimeUnit.SECONDS.sleep(5);

@@ -12,18 +12,16 @@ public class _079_RunAfterBoth
     {
     	CompletableFuture<String> task1 = CompletableFuture
     			.supplyAsync(() -> {try{
-    								System.out.println(Thread.currentThread().getName() + ": firstTask");
-    								TimeUnit.SECONDS.sleep(3);    								
+    								TimeUnit.SECONDS.sleep(3);
+    								System.out.println(Thread.currentThread().getName() + ": firstTask");    								    								
     								} catch (Exception e){}
     								return "1"; });
     	CompletableFuture<String> task2 = CompletableFuture
     			.supplyAsync(() -> {try{
-									System.out.println(Thread.currentThread().getName() + ": secondTask");
-									TimeUnit.SECONDS.sleep(1);    								
+    								TimeUnit.SECONDS.sleep(1); 
+									System.out.println(Thread.currentThread().getName() + ": secondTask");									   								
 									} catch (Exception e){}
 									return "2"; });
-    	
-    	//input-NO, output-NO
     	CompletableFuture<Void> future = task1.runAfterBoth(task2, 
     						() -> {System.out.println(Thread.currentThread().getName() + ": thirdTask ");});
     	

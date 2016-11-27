@@ -15,31 +15,32 @@ public class _099_Callbacks {
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException{
 		_099_Callbacks obj = new _099_Callbacks();
-		obj.callback1();
-		obj.callback2();
-		obj.callback3();
+		System.out.println("callback1");obj.callback1();
+		System.out.println("callback2");obj.callback2();
+		System.out.println("callback3");obj.callback3();
 	}
 
 
 	public void callback1() throws InterruptedException, ExecutionException{
-		ExecutorService pool = Executors.newSingleThreadExecutor();
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
 			try {
 				Thread.sleep(2000);
+				System.out.println(Thread.currentThread().getName() + ": original task");
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			};
 			return "ABC";
-		}, pool);
+		}, executor);
 
 		future.thenApply(s -> {
 			System.out.println(Thread.currentThread().getName() + ": First transformation");
 			return s.length();
 		});
+		
 		future.get();
-		pool.shutdownNow();
-		pool.awaitTermination(1, TimeUnit.MINUTES);
+		executor.shutdownNow();
+		executor.awaitTermination(1, TimeUnit.MINUTES);
 
 		future.thenApply(s -> {
 			System.out.println(Thread.currentThread().getName() + ": Second transformation");
@@ -52,10 +53,12 @@ public class _099_Callbacks {
 	 task completion in the same thread as the task. However before registering second transformation we wait until the task actually 
 	 completes. Even worse, we shutdown the thread pool entirely, to make sure no other code can ever be executed there. So which thread 
 	 will run second transformation? We know it must happen immediately since the future we register callback on already completed. It 
-	 turns out that by default client thread (!) is used! The output is as follows:
+	 turns out that by default client thread is used! The output is as follows:
 
+	pool-1-thread-1: original task
 	pool-1-thread-1: First transformation
 	main: Second transformation
+	
 	Second transformation, when registered, realizes that the CompletableFuture already finished, so it executes the transformation immediately.
 	There is no other thread around so thenApply() is invoked in the context of current main thread. The biggest reason why this behavior is 
 	error prone shows up when the actual transformation is costly. Imagine lambda expression inside thenApply() doing some heavy computation or 
@@ -66,34 +69,38 @@ public class _099_Callbacks {
 	~~~check callback2()
 	This time the second transformation was automatically off-loaded to our friend, ForkJoinPool.commonPool():
 
+	pool-2-thread-1: original task
 	pool-2-thread-1: First transformation
 	ForkJoinPool.commonPool-worker-1: Second transformation
 	
-	But we don't like commonPool so we supply our own:
+	But we don't like commonPool so we supply our own executor:
 	~~~check callback3()
+	
+	pool-3-thread-1: original task
 	pool-3-thread-1: First transformation
 	pool-4-thread-1: Second transformation
 	 */
 
 	public void callback2() throws InterruptedException, ExecutionException{
-		ExecutorService pool = Executors.newSingleThreadExecutor();
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
 			try {
 				Thread.sleep(2000);
+				System.out.println(Thread.currentThread().getName() + ": original task");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			};
 			return "ABC";
-		}, pool);
+		}, executor);
 
 		future.thenApply(s -> {
 			System.out.println(Thread.currentThread().getName() + ": First transformation");
 			return s.length();
 		});
 		future.get();
-		pool.shutdownNow();
-		pool.awaitTermination(1, TimeUnit.MINUTES);
+		executor.shutdownNow();
+		executor.awaitTermination(1, TimeUnit.MINUTES);
 
 		future.thenApplyAsync(s -> {
 			System.out.println(Thread.currentThread().getName() + ": Second transformation");
@@ -108,6 +115,7 @@ public class _099_Callbacks {
 		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
 			try {
 				Thread.sleep(2000);
+				System.out.println(Thread.currentThread().getName() + ": original task");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

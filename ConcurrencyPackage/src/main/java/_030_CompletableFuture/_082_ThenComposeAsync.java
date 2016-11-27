@@ -13,8 +13,8 @@ public class _082_ThenComposeAsync
 		
 		CompletableFuture<String> task1 = CompletableFuture
 				.supplyAsync(()->{try{
-					System.out.println(Thread.currentThread().getName() + ": firstTask");
-					TimeUnit.SECONDS.sleep(2);    								
+					TimeUnit.SECONDS.sleep(2); 
+					System.out.println(Thread.currentThread().getName() + ": firstTask");					   								
 				} catch (Exception e){}
 				return "1"; });
 
@@ -29,8 +29,8 @@ public class _082_ThenComposeAsync
 	// this returns a completable future object
 	private CompletableFuture<String> secondTask(String y) {
 		try{
-			System.out.println(Thread.currentThread().getName() + ": secondTask");
 			TimeUnit.SECONDS.sleep(1);
+			System.out.println(Thread.currentThread().getName() + ": secondTask");			
 		} catch (Exception e){}
 		return CompletableFuture.supplyAsync( ( ) -> y);
 	}

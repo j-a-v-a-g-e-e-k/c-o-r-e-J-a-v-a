@@ -15,14 +15,14 @@ public class _077_AcceptEitherAsyncExecutor
     	ExecutorService executor = Executors.newFixedThreadPool(5);
     	CompletableFuture<String> task1 = CompletableFuture
     			.supplyAsync(() -> {try{
-    								System.out.println(Thread.currentThread().getName() + ": firstTask");
-    								TimeUnit.SECONDS.sleep(2);    								
+    								TimeUnit.SECONDS.sleep(2);  
+    								System.out.println(Thread.currentThread().getName() + ": firstTask");    								  								
     								} catch (Exception e){}
     								return "1"; });
     	CompletableFuture<String> task2 = CompletableFuture
     			.supplyAsync(() -> {try{
-									System.out.println(Thread.currentThread().getName() + ": secondTask");
-									TimeUnit.SECONDS.sleep(3);    								
+    								TimeUnit.SECONDS.sleep(3);
+									System.out.println(Thread.currentThread().getName() + ": secondTask");									    								
 									} catch (Exception e){}
 									return "2"; });
     	// supplied executor will execute third task

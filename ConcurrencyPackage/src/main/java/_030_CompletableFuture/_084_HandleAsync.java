@@ -12,8 +12,8 @@ public class _084_HandleAsync
 		CompletableFuture<Integer> task1 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2); 
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						   								
 					} catch (Exception e){}
 					return 10/0;})
 				.handleAsync((ok,ex)-> {

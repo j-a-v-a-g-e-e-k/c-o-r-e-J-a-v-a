@@ -12,8 +12,8 @@ public class _083_Exceptionally
 		CompletableFuture<Integer> task1 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2);
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						    								
 					} catch (Exception e){}
 					return 10/0;})
 				//input=YES(only if exception is thrown), output=YES(only if exception is thrown)
@@ -29,13 +29,13 @@ public class _083_Exceptionally
 		CompletableFuture<Integer> task2 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2);
+						System.out.println(Thread.currentThread().getName() + ": thirdTask");						    								
 					} catch (Exception e){}
 					return 10/2;})
 				//input=YES(both), output=NO
 				.exceptionally((ex)-> {
-						System.out.println(Thread.currentThread().getName() + ": secondTask " + ex);
+						System.out.println(Thread.currentThread().getName() + ": fourthTask " + ex);
 						return 999;
 				});
 

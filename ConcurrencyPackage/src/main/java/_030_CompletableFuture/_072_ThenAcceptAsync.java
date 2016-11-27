@@ -15,7 +15,6 @@ public class _072_ThenAcceptAsync
     								TimeUnit.SECONDS.sleep(2);    								
     								} catch (Exception e){}
     								return "1"; })
-    			//input=YES, output=NO
     			.thenAcceptAsync((x)-> {System.out.println(Thread.currentThread().getName() + ": secondTask " + x);});
 
     	TimeUnit.SECONDS.sleep(5);

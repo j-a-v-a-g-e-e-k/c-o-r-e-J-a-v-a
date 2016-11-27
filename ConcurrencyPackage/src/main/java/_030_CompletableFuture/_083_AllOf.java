@@ -11,24 +11,23 @@ public class _083_AllOf
 	{
     	CompletableFuture<String> task1 = CompletableFuture
     			.supplyAsync(() -> {try{
-    								System.out.println(Thread.currentThread().getName() + ": firstTask");
-    								TimeUnit.SECONDS.sleep(2);    								
+    								TimeUnit.SECONDS.sleep(2);
+    								System.out.println(Thread.currentThread().getName() + ": firstTask");    								    								
     								} catch (Exception e){}
     								return "1"; });
     	
     	CompletableFuture<String> task2 = CompletableFuture
     			.supplyAsync(() -> {try{
-									System.out.println(Thread.currentThread().getName() + ": secondTask");
-									TimeUnit.SECONDS.sleep(3);    								
+    								TimeUnit.SECONDS.sleep(3); 
+									System.out.println(Thread.currentThread().getName() + ": secondTask");									   								
 									} catch (Exception e){}
 									return "2"; });
 	
-    	//output=NO. You can just use this future to determine if all the supplied future have completed or not
+    	//You can just use this future to determine if all the supplied future have completed or not
     	//allOf() is a static function    	
     	CompletableFuture<Void> future = CompletableFuture.allOf(task1, task2);
     	
-    	TimeUnit.SECONDS.sleep(5);
-    	
+    	if (!future.isDone()) System.out.println("future is not complete yet");
     	System.out.println(task1.get());
     	System.out.println(task2.get());
     	System.out.println(future.get());

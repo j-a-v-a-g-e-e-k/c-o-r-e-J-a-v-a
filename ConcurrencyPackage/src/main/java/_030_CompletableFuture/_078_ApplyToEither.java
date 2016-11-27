@@ -12,18 +12,16 @@ public class _078_ApplyToEither
     {
     	CompletableFuture<String> task1 = CompletableFuture
     			.supplyAsync(() -> {try{
-    								System.out.println(Thread.currentThread().getName() + ": firstTask");
-    								TimeUnit.SECONDS.sleep(3);    								
+    								TimeUnit.SECONDS.sleep(3);
+    								System.out.println(Thread.currentThread().getName() + ": firstTask");    								    								
     								} catch (Exception e){}
     								return "1"; });
     	CompletableFuture<String> task2 = CompletableFuture
     			.supplyAsync(() -> {try{
-									System.out.println(Thread.currentThread().getName() + ": secondTask");
-									TimeUnit.SECONDS.sleep(1);    								
+    								TimeUnit.SECONDS.sleep(1); 
+									System.out.println(Thread.currentThread().getName() + ": secondTask");									   								
 									} catch (Exception e){}
 									return "2"; });
-    	
-    	//input-YES, output-YES
     	CompletableFuture<String> future = task1.applyToEither(task2, 
     						(x) -> {System.out.println(Thread.currentThread().getName() + ": thirdTask " + x);
     								return x;

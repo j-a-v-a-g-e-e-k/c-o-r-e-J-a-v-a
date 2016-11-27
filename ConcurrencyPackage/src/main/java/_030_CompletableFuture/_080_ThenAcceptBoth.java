@@ -12,19 +12,17 @@ public class _080_ThenAcceptBoth
     {
     	CompletableFuture<String> task1 = CompletableFuture
     			.supplyAsync(() -> {try{
-    								System.out.println(Thread.currentThread().getName() + ": firstTask");
-    								TimeUnit.SECONDS.sleep(2);    								
+    								TimeUnit.SECONDS.sleep(2);
+    								System.out.println(Thread.currentThread().getName() + ": firstTask");    								    								
     								} catch (Exception e){}
     								return "1"; });
     	CompletableFuture<String> task2 = CompletableFuture
     			.supplyAsync(() -> {try{
-									System.out.println(Thread.currentThread().getName() + ": secondTask");
-									TimeUnit.SECONDS.sleep(3);    								
+    								TimeUnit.SECONDS.sleep(3); 
+									System.out.println(Thread.currentThread().getName() + ": secondTask");									   								
 									} catch (Exception e){}
 									return "2"; });
-
     	//thread which finishes last will execute third task
-    	//input=YES, output=NO
     	task1.thenAcceptBoth(task2, (x,y) -> {System.out.println(Thread.currentThread().getName() + ": thirdTask " + x+y);});
 
     	TimeUnit.SECONDS.sleep(5);

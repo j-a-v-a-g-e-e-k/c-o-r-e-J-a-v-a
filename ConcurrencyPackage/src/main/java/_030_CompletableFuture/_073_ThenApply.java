@@ -15,7 +15,6 @@ public class _073_ThenApply
     								TimeUnit.SECONDS.sleep(2);    								
     								} catch (Exception e){}
     								return "1"; })
-    			//input=YES, output=Yes
     			.thenApply((x)-> {System.out.println(Thread.currentThread().getName() + ": secondTask " + x);
     								return Integer.parseInt(x);});
    	

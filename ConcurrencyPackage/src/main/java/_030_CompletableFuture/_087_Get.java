@@ -26,9 +26,7 @@ public class _087_Get
 				return 10;
 				});
 		TimeUnit.SECONDS.sleep(2);
-		//getNow() method doesn't block if the future 
-		//is not completed yet, returns default value. Useful when building robust systems where we don't want to wait too much.
-
+		//getNow() method doesn't block if the future is not completed yet, returns default value.
 		System.out.println(Thread.currentThread().getName() + ": " + task2.getNow(11));
 		
 		

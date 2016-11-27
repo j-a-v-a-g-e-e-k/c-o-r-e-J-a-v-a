@@ -12,8 +12,8 @@ public class _084_Handle
 		CompletableFuture<Integer> task1 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2); 
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						   								
 					} catch (Exception e){}
 					return 10/2;})
 				//input=YES(both), output=YES
@@ -34,8 +34,8 @@ public class _084_Handle
 		CompletableFuture<Integer> task2 = CompletableFuture
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2); 
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						   								
 					} catch (Exception e){}
 					return 10/0;})
 				//input=YES(both), output=YES

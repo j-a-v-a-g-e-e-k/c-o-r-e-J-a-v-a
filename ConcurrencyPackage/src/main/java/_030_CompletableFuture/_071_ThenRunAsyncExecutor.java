@@ -13,7 +13,6 @@ public class _071_ThenRunAsyncExecutor
 	{
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 		CompletableFuture<Void> task1 = CompletableFuture
-				//output=YES
 				.supplyAsync(() -> {try{
 					System.out.println(Thread.currentThread().getName() + ": firstTask");
 					TimeUnit.SECONDS.sleep(2);    								

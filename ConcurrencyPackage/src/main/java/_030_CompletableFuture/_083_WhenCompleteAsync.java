@@ -13,8 +13,8 @@ public class _083_WhenCompleteAsync
 				//output=YES
 				.supplyAsync(() -> {
 					try{
-						System.out.println(Thread.currentThread().getName() + ": firstTask");
-						TimeUnit.SECONDS.sleep(2);    								
+						TimeUnit.SECONDS.sleep(2);
+						System.out.println(Thread.currentThread().getName() + ": firstTask");						    								
 					} catch (Exception e){}
 					return 10/0;})
 				//input=YES(both), output=NO
