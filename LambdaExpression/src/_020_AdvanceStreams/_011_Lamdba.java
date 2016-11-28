@@ -48,6 +48,7 @@ public class _011_Lamdba {
 		//7. method reference
 		numbers.forEach(System.out::println);
 
+		System.out.println("=================================================");
 		//given the values, double the even numbers and total.		    
 		int result = 0;		    
 		for(int e : numbers) {
@@ -82,6 +83,7 @@ public class _011_Lamdba {
 				.mapToInt(e -> e * 2)
 				.sum());});
 		
+		System.out.println("=================================================");
 		/* Another important feature is to process loop in parallel:
 		The external iteration typically means sequential code. The sequential code can be executed only by one thread.
 		Streams are designed to process elements in parallel.

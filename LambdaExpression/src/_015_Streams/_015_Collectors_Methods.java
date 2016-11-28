@@ -14,7 +14,6 @@ Parameters:
 collector the Collector describing the reduction
 Returns:
 the result of the reduction
-
 */
 
 package _015_Streams;
